@@ -1,3 +1,3 @@
-const NearestHelpCentersList = () => {
+const NearestHelpCentersList = ({userPosition, helpCenterPositions}) => {
     
 }
