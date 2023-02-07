@@ -1,11 +1,13 @@
-import { Box, Button, List, ListItem, ListItemText, TextField } from "@mui/material"
+import { Box, Button, Divider, List, ListItem, ListItemText, TextField } from "@mui/material"
 import { useEffect, useState } from "react"
+import { useMap } from "react-leaflet"
 import calcCrow from "../helpers/utils"
 
 const NearestHelpCentersList = ({userPosition, helpCenterPositions}) => {
     const [selectedLocation, setSelectedLocation] = useState('')
     const [error, setError] = useState(null)
     const [nearestCenters, setNearestCenters] = useState([])
+    const map = useMap()
 
     const createNearestHelpCenters = async (lat, lon) => {
         const distances = []
@@ -45,6 +47,7 @@ const NearestHelpCentersList = ({userPosition, helpCenterPositions}) => {
         
         if (userPosition) {
             createBasedOnGeolocation()
+            map.setView([userPosition.lat, userPosition.lon])
         }
 
     }, [userPosition])
@@ -56,6 +59,7 @@ const NearestHelpCentersList = ({userPosition, helpCenterPositions}) => {
         }
 
         const {lat, lon} = await getCoords(selectedLocation)
+        map.setView([lat, lon])
         await createNearestHelpCenters(lat, lon)
 	}
 
@@ -75,11 +79,14 @@ const NearestHelpCentersList = ({userPosition, helpCenterPositions}) => {
             >
                 En Yakın Merkezleri Listele
             </Button>
-            <List>
+            <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
                 {nearestCenters.map((nc) => (
-                    <ListItem>
-                        <ListItemText primary={nc.title} secondary={`${nc.distance} km`} />
-                    </ListItem>
+                    <>
+                        <ListItem>
+                            <ListItemText primary={nc.title} secondary={`${nc.distance} km`} />
+                        </ListItem>
+                        <Divider />
+                    </>
                 ))}
             </List>
         </Box>

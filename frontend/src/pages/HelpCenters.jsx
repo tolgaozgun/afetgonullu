@@ -1,4 +1,4 @@
-import { Box, Button } from '@mui/material';
+import { Box, Button, Grid } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { useEffect, useState } from 'react';
 import Map from "../components/Map";
@@ -54,16 +54,20 @@ const HelpCenters = () => {
 
 
 	return (
-		<div>
-			<NearestHelpCentersList 
-				userPosition={currentPosition}
-				helpCenterPositions={helpCenters}
-			/>
-			<Map
-				markingPoints={helpCenters}
-				center={currentPosition}
-			/>
-		</div>
+		<Grid container spacing={2}>
+			<Grid item xs={8}>
+				<NearestHelpCentersList 
+					userPosition={currentPosition}
+					helpCenterPositions={helpCenters}
+				/>
+			</Grid>
+			<Grid item xs={4}>
+				<Map
+					markingPoints={helpCenters}
+					center={currentPosition}
+				/>
+			</Grid>
+		</Grid>
 	);
 }
 
