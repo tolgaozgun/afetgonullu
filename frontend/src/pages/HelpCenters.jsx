@@ -1,10 +1,13 @@
+import { Box, Button } from '@mui/material';
+import TextField from '@mui/material/TextField';
+import { useEffect, useState } from 'react';
 import Map from "../components/Map";
-const { useEffect, useState } = require("react");
+import NearestHelpCentersList from '../components/NearestHelpCentersList';
 
 const HelpCenters = () => {
     const [markingPoints, setMarkingPoints] = useState([])
 	const [currentPosition, setCurrentPosition] = useState({})
-
+	
 	// Fetch points from the database
 	const options = {
 	  enableHighAccuracy: true,
@@ -50,51 +53,15 @@ const HelpCenters = () => {
 	}, [])
 
 
-  // //send the data on the state to the API
-  // function getData(url) {
-  //   fetch(url, {
-  //     method: "POST",
-  //     mode: "cors",
-  //     headers: {
-  //       "Access-Control-Allow-Origin": "https://www.afetgonullu.com.tr"
-  //     }
-  //   })
-  //     .then((response) => {
-  //       if (response.ok) {
-  //         return response.json();
-  //       }
-  //     })
-  //     .then((data) => {
-  //       setName(data[0].display_name);
-  //       setCorrds({
-  //         latitude: data[0].lat,
-  //         longitude: data[0].lon
-  //       });
-  //     })
-  //     .catch(() => error("Please Check your input"));
-  // }
-
-  // //set form input( data entered ) to state on form submit
-  // function submitHandler(e) {
-  //   e.preventDefault();
-  //   console.log(address);
-
-  //   let url = `https://nominatim.openstreetmap.org/search?
-  //     street=${address.street}
-  //     &city=${address.city}
-  //     &country=Turkey`
-
-  //   getData(url);
-  // }
-
-  return (
-    <div className="App">
-      <Map
-	  	markingPoints={markingPoints}
-		center={currentPosition}
-	  />
-    </div>
-  );
+	return (
+		<div>
+			<NearestHelpCentersList />
+			<Map
+				markingPoints={markingPoints}
+				center={currentPosition}
+			/>
+		</div>
+	);
 }
 
 export default HelpCenters
