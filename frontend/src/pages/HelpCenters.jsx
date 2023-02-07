@@ -55,7 +55,6 @@ const HelpCenters = () => {
 
 
 	return (
-		
 		<Grid container spacing={1}>
 			<Grid item xs={10}>
 				<Map
