@@ -6,12 +6,9 @@ import RecenterMap from './RecenterMap';
 function Map({ markingPoints }) {
     // markingPoints is an 
     const [activePoint, setActivePoint] = useState(null)
-    if (markingPoints.length === 0) {
-        return <h1>Trouble accessing help center data</h1>
-    }
     
     return (
-        <MapContainer center={[39.028,33.882]} zoom={7} scrollWheelZoom={true}>
+        <MapContainer center={[39.028,33.882]} zoom={7}  zoomSettings={{ enable: true, toolbars: ['Zoom', 'ZoomIn', 'ZoomOut', 'Pan', 'Reset'] }}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

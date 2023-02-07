@@ -21,9 +21,9 @@ const HelpCenters = () => {
 		err.code === 2 || //for any internal errors
 		err.code === 3 //error due to timeout
 	  ) {     
-		alert(err.message);
+		// alert(err.message);
 	  } else {
-		alert(err);
+		// alert(err);
 	  }
 	}
 	
@@ -54,13 +54,13 @@ const HelpCenters = () => {
 
 
 	return (
-		<Grid p={4} container spacing={1}>
-			<Grid item xs={8}>
+		<Grid container spacing={1}>
+			<Grid item xs={10}>
 				<Map
 					markingPoints={helpCenters}
 				/>
 			</Grid>
-			<Grid item xs={4}>
+			<Grid item xs={2}>
 				<NearestHelpCentersList 
 					userPosition={currentPosition}
 					helpCenterPositions={helpCenters}

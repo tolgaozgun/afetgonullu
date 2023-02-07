@@ -2,6 +2,7 @@ import { Box, Button, Divider, List, ListItem, ListItemText, TextField } from "@
 import { useEffect, useState } from "react"
 import { useMap } from "react-leaflet"
 import calcCrow from "../helpers/utils"
+import "./NearestHelpCentersList.css"
 
 const NearestHelpCentersList = ({ userPosition, helpCenterPositions}) => {
     const [selectedLocation, setSelectedLocation] = useState('')
@@ -50,7 +51,7 @@ const NearestHelpCentersList = ({ userPosition, helpCenterPositions}) => {
 
     }, [userPosition])
     
-	const handleList = async () => {
+	const handleList = async (selectedLocation) => {
         if (!selectedLocation) {
             setError("Şehir boş bırakılamaz")
             return null
@@ -61,7 +62,9 @@ const NearestHelpCentersList = ({ userPosition, helpCenterPositions}) => {
 	}
 
     return (
-        <Box>
+        <Box alignItems="center" justifyItems="center" 
+        direction="column"
+        spacing={0}>
             <TextField
                 error={error !== null}
                 helperText={error ? error : ''}
@@ -69,6 +72,7 @@ const NearestHelpCentersList = ({ userPosition, helpCenterPositions}) => {
                 value={selectedLocation}
                 onChange={(event) => {
                     setSelectedLocation(event.target.value)
+                    handleList(event.target.value)
                 }}
             />
             <Button
