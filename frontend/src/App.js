@@ -43,8 +43,9 @@ export default function App() {
 		// Get the help centers from the API
 		const getMarkingPoints = async () => {
 			const response = await fetch('/api/locations')
-			const data = response.json()
+			const data = await response.json()
 			console.log(data)
+			setMarkingPoints(data)
 		}
 
 		getMarkingPoints()
