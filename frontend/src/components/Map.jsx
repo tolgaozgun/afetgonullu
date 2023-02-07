@@ -1,14 +1,16 @@
-import { Icon } from "leaflet";
 import { useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import "./Map.css";
 
-function Map({ markingPoints }) {
+function Map({ markingPoints, center }) {
     // markingPoints is an 
     const [activePoint, setActivePoint] = useState(null)
+    if (markingPoints.length === 0) {
+        return <h1>Trouble accessing help center data</h1>
+    }
     
     return (
-        <MapContainer center={[37.579764350000005,36.93069649570153]} zoom={12} scrollWheelZoom={true}>
+        <MapContainer center={center || [37.579764350000005,36.93069649570153]} zoom={12} scrollWheelZoom={true}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -26,9 +28,7 @@ function Map({ markingPoints }) {
                         onClick={() => {
                             setActivePoint(point)
                         }}
-                    >
-
-                    </Marker>
+                    />
                 })
             }
         </MapContainer>
