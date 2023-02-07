@@ -1,10 +1,10 @@
-import { Box, Button, Divider, List, ListItem, ListItemText, TextField } from "@mui/material"
+import { Box, Button, Divider, List, ListItem, ListItemButton, ListItemText, Stack, TextField } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useMap } from "react-leaflet"
 import calcCrow from "../helpers/utils"
 import "./NearestHelpCentersList.css"
 
-const NearestHelpCentersList = ({ userPosition, helpCenterPositions}) => {
+const NearestHelpCentersList = ({ userPosition, helpCenterPositions, setMapView}) => {
     const [selectedLocation, setSelectedLocation] = useState('')
     const [error, setError] = useState(null)
     const [nearestCenters, setNearestCenters] = useState([])
@@ -19,6 +19,7 @@ const NearestHelpCentersList = ({ userPosition, helpCenterPositions}) => {
             })
         }
 
+        setMapView(lat, lon)
         setNearestCenters(distances.sort((a, b) => a.distance - b.distance))
     }
 
@@ -65,6 +66,7 @@ const NearestHelpCentersList = ({ userPosition, helpCenterPositions}) => {
         <Box alignItems="center" justifyItems="center" 
         direction="column"
         spacing={0}>
+        <Stack spacing={2}>
             <TextField
                 error={error !== null}
                 helperText={error ? error : ''}
@@ -76,15 +78,19 @@ const NearestHelpCentersList = ({ userPosition, helpCenterPositions}) => {
                 }}
             />
             <Button
+                variant={"contained"}
                 onClick={handleList}
             >
                 En Yakın Merkezleri Listele
             </Button>
+        </Stack>
             <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
                 {nearestCenters.map((nc) => (
                     <>
                         <ListItem>
-                            <ListItemText primary={nc.title} secondary={`${nc.distance} km`} />
+                            <ListItemButton>
+                                <ListItemText primary={nc.title} secondary={`${nc.distance} km`} />
+                            </ListItemButton>
                         </ListItem>
                         <Divider />
                     </>
