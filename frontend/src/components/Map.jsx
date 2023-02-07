@@ -16,6 +16,23 @@ function Map({ markingPoints, center }) {
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             />
             {
+                activePoint && (
+                    <Popup
+                        position={[
+                            activePoint.geometry.lat,
+                            activePoint.geometry.lon,
+                        ]}
+                        onClose={() => {
+                            setActivePoint(null)
+                        }}
+                    >   
+                        <div>
+                            <h2></h2>
+                        </div>
+                    </Popup>
+                )
+            }
+            {
                 markingPoints.map(point => {
                     <Marker
                         key={point.id}
@@ -48,3 +65,6 @@ export default Map;
 //         }
 //         latestInformationDate: Date
 //     }],
+// properties: {
+//     name:
+// }
