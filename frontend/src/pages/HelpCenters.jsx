@@ -1,3 +1,6 @@
+import Map from "../components/Map";
+const { useEffect, useState } = require("react");
+
 const HelpCenters = () => {
     const [markingPoints, setMarkingPoints] = useState([])
 	const [currentPosition, setCurrentPosition] = useState({})
@@ -86,10 +89,12 @@ const HelpCenters = () => {
 
   return (
     <div className="App">
-      <Map 
+      <Map
 	  	markingPoints={markingPoints}
 		center={currentPosition}
 	  />
     </div>
   );
 }
+
+export default HelpCenters
