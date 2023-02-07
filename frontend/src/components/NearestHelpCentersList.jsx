@@ -62,7 +62,8 @@ const NearestHelpCentersList = ({userPosition, helpCenterPositions}) => {
     return (
         <Box>
             <TextField
-                error={error}
+                error={error !== null}
+                helperText={error ? error : ''}
                 label="Şehir"
                 value={selectedLocation}
                 onChange={(event) => {
