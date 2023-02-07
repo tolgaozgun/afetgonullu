@@ -59,12 +59,13 @@ const HelpCenters = () => {
 				<NearestHelpCentersList 
 					userPosition={currentPosition}
 					helpCenterPositions={helpCenters}
+					setView={setCurrentPosition}
 				/>
 			</Grid>
 			<Grid item xs={4}>
 				<Map
 					markingPoints={helpCenters}
-					center={currentPosition}
+					view={currentPosition}
 				/>
 			</Grid>
 		</Grid>

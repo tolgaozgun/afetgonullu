@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import "./Map.css";
+import RecenterMap from './RecenterMap';
 
-function Map({ markingPoints, center }) {
+function Map({ markingPoints, view }) {
     // markingPoints is an 
     const [activePoint, setActivePoint] = useState(null)
     if (markingPoints.length === 0) {
@@ -51,6 +52,7 @@ function Map({ markingPoints, center }) {
                     />
                 ))
             }
+            <RecenterMap lat={view.lat} lon={view.lon}/>
         </MapContainer>
     );
 }

@@ -3,11 +3,10 @@ import { useEffect, useState } from "react"
 import { useMap } from "react-leaflet"
 import calcCrow from "../helpers/utils"
 
-const NearestHelpCentersList = ({userPosition, helpCenterPositions}) => {
+const NearestHelpCentersList = ({ userPosition, helpCenterPositions, setView}) => {
     const [selectedLocation, setSelectedLocation] = useState('')
     const [error, setError] = useState(null)
     const [nearestCenters, setNearestCenters] = useState([])
-    const map = useMap()
 
     const createNearestHelpCenters = async (lat, lon) => {
         const distances = []
@@ -47,7 +46,7 @@ const NearestHelpCentersList = ({userPosition, helpCenterPositions}) => {
         
         if (userPosition) {
             createBasedOnGeolocation()
-            map.setView([userPosition.lat, userPosition.lon])
+            setView({lat: userPosition.lat, lon: userPosition.lon})
         }
 
     }, [userPosition])
@@ -59,7 +58,7 @@ const NearestHelpCentersList = ({userPosition, helpCenterPositions}) => {
         }
 
         const {lat, lon} = await getCoords(selectedLocation)
-        map.setView([lat, lon])
+        setView({ lat, lon })
         await createNearestHelpCenters(lat, lon)
 	}
 
