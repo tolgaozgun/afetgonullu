@@ -54,14 +54,14 @@ const HelpCenters = () => {
 
 
 	return (
-		<Grid container spacing={2}>
-			<Grid item xs={8}>
+		<Grid container spacing={1}>
+			<Grid item xs={1}>
 				<NearestHelpCentersList 
 					userPosition={currentPosition}
 					helpCenterPositions={helpCenters}
 				/>
 			</Grid>
-			<Grid item xs={4}>
+			<Grid item xs={3}>
 				<Map
 					markingPoints={helpCenters}
 				/>
