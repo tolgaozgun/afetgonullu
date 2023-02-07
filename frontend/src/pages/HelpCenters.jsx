@@ -5,8 +5,8 @@ import Map from "../components/Map";
 import NearestHelpCentersList from '../components/NearestHelpCentersList';
 
 const HelpCenters = () => {
-    const [markingPoints, setMarkingPoints] = useState([])
-	const [currentPosition, setCurrentPosition] = useState({})
+    const [helpCenters, setHelpCenters] = useState([])
+	const [currentPosition, setCurrentPosition] = useState(null)
 	
 	// Fetch points from the database
 	const options = {
@@ -31,8 +31,8 @@ const HelpCenters = () => {
 		// Get and set the current position of the user
 		const setCurrentPosition = (position) => {
 			setCurrentPosition({
-				latitude: position.coords.latitude,
-				longitude: position.coords.longitude,
+				lat: position.coords.latitude,
+				lon: position.coords.longitude,
 			})
 		}
 		navigator.geolocation.getCurrentPosition(
@@ -46,7 +46,7 @@ const HelpCenters = () => {
 			const response = await fetch('/api/locations')
 			const data = await response.json()
 			console.log(data)
-			setMarkingPoints(data)
+			setHelpCenters(data)
 		}
 
 		getMarkingPoints()
@@ -55,9 +55,12 @@ const HelpCenters = () => {
 
 	return (
 		<div>
-			<NearestHelpCentersList />
+			<NearestHelpCentersList 
+				userPosition={currentPosition}
+				helpCenterPositions={helpCenters}
+			/>
 			<Map
-				markingPoints={markingPoints}
+				markingPoints={helpCenters}
 				center={currentPosition}
 			/>
 		</div>

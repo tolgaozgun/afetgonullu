@@ -1,25 +1,62 @@
-import { Box, Button, TextField } from "@mui/material"
-import { useState } from "react"
+import { Box, Button, List, ListItem, ListItemText, TextField } from "@mui/material"
+import { useEffect, useState } from "react"
+import calcCrow from "../helpers/utils"
 
 const NearestHelpCentersList = ({userPosition, helpCenterPositions}) => {
-    const [currentLocation, setCurrentLocation] = useState(null)
+    const [selectedLocation, setSelectedLocation] = useState(null)
     const [error, setError] = useState(null)
-    
-	const handleList = () => {
-        const getNearestHelpCenters = async () => {
-            if (!currentLocation) {
-                setError("Şehir boş bırakılamaz")
-                return
-            }
+    const [nearestCenters, setNearestCenters] = useState([])
 
-            const url = `http://nominatim.openstreetmap.org/search?city={currentLocation}&format=json`
-            const response = await fetch(url)
-            const data = await response.json()
-            
-            console.log(data)
+    const createNearestHelpCenters = async (lat, lon) => {
+        const distances = []
+        for (let i = 0; i < helpCenterPositions.length; i++) {
+            const distance = calcCrow(lat, lon, helpCenterPositions[i].geometry.lat, helpCenterPositions[i].geometry.lon)
+            distances.push({ 
+                title: helpCenterPositions[i].properties.name,
+                distance,
+            })
         }
 
-        getNearestHelpCenters()
+        setNearestCenters(distances.sort((a, b) => a.distance - b.distance))
+    }
+
+    const getCoords = async (cityName) => {
+        if (!cityName) {
+            setError("Şehir boş bırakılamaz")
+            return null
+        }
+
+        const url = `http://nominatim.openstreetmap.org/search?city=${cityName}&format=json`
+        const response = await fetch(url)
+        const data = await response.json()
+        
+        if (!data || !data[0] || !data[0].lon || !data[0].lat) {
+            setError("Şehir verisi bulunamadı")
+            return null
+        }
+        return { lat: data[0].lat, lon: data[0].lon }
+    }
+
+
+    useEffect(() => {
+        const createBasedOnGeolocation = async() => {
+            await createNearestHelpCenters(userPosition.lat, userPosition.lon)
+        }
+        
+        if (userPosition) {
+            createBasedOnGeolocation()
+        }
+
+    }, [userPosition])
+    
+	const handleList = async () => {
+        if (!selectedLocation || !selectedLocation.city) {
+            setError("Şehir boş bırakılamaz")
+            return null
+        }
+
+        const {lat, lon} = await getCoords(selectedLocation.city)
+        await createNearestHelpCenters(lat, lon)
 	}
 
     return (
@@ -27,14 +64,23 @@ const NearestHelpCentersList = ({userPosition, helpCenterPositions}) => {
             <TextField
                 error={error}
                 label="Şehir"
-                value={currentLocation}
-                onChange={setCurrentLocation}
+                value={selectedLocation}
+                onChange={setSelectedLocation}
             />
             <Button
                 onClick={handleList}
             >
                 En Yakın Merkezleri Listele
             </Button>
+            <List>
+                {nearestCenters.map((nc) => (
+                    <ListItem>
+                        <ListItemText primary={nc.title} secondary={`${nc.distance} km`} />
+                    </ListItem>
+                ))}
+            </List>
         </Box>
     )
 }
+
+export default NearestHelpCentersList
