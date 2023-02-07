@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import calcCrow from "../helpers/utils"
 
 const NearestHelpCentersList = ({userPosition, helpCenterPositions}) => {
-    const [selectedLocation, setSelectedLocation] = useState(null)
+    const [selectedLocation, setSelectedLocation] = useState('')
     const [error, setError] = useState(null)
     const [nearestCenters, setNearestCenters] = useState([])
 
@@ -65,7 +65,9 @@ const NearestHelpCentersList = ({userPosition, helpCenterPositions}) => {
                 error={error}
                 label="Şehir"
                 value={selectedLocation}
-                onChange={setSelectedLocation}
+                onChange={(event) => {
+                    setSelectedLocation(event.target.value)
+                }}
             />
             <Button
                 onClick={handleList}
