@@ -11,7 +11,7 @@ function Map({ markingPoints }) {
     }
     
     return (
-        <MapContainer center={[37.579764350000005,36.93069649570153]} zoom={12} scrollWheelZoom={true}>
+        <MapContainer center={[39.028,33.882]} zoom={7} scrollWheelZoom={true}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
