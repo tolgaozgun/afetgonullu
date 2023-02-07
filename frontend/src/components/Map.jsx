@@ -49,7 +49,7 @@ function Map({ markingPoints, mapView }) {
                     />
                 ))
             }
-            <RecenterMap lat={mapView.lat ?? ''} lon={mapView.lon ?? ''}/>
+            <RecenterMap lat={mapView?.lat || ''} lon={mapView?.lon || ''}/>
         </MapContainer>
     );
 }
