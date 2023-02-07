@@ -50,12 +50,12 @@ const NearestHelpCentersList = ({userPosition, helpCenterPositions}) => {
     }, [userPosition])
     
 	const handleList = async () => {
-        if (!selectedLocation || !selectedLocation.city) {
+        if (!selectedLocation) {
             setError("Şehir boş bırakılamaz")
             return null
         }
 
-        const {lat, lon} = await getCoords(selectedLocation.city)
+        const {lat, lon} = await getCoords(selectedLocation)
         await createNearestHelpCenters(lat, lon)
 	}
 
