@@ -36,7 +36,7 @@ function Map({ markingPoints, center }) {
                 )
             }
             {
-                markingPoints.map(point => {
+                markingPoints.map(point => (
                     <Marker
                         key={point.id}
                         position={
@@ -49,28 +49,10 @@ function Map({ markingPoints, center }) {
                             setActivePoint(point)
                         }}
                     />
-                })
+                ))
             }
         </MapContainer>
     );
 }
 
 export default Map;
-
-// [{
-//         geometry: {
-//             lat: Number,
-//             lon: Number,
-//         },
-//         help: {
-//             needed: Boolean,
-//             message: String,
-//         }
-//         latestInformationDate: Date,
-//         properties: {
-//             name: "xxx",
-//         }
-//     }],
-// properties: {
-//     name:
-// }
