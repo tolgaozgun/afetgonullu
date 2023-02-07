@@ -15,11 +15,13 @@ const router = createBrowserRouter([
   ]);
 
 export default function App() {
-	<>
-		<RouterProvider router={router} />
-		<div class="App">
+	return (
+		<>
+			<RouterProvider router={router} />
+			<div class="App">
 
-		</div>
-	</>
+			</div>
+		</>
+	)
 	
 }
