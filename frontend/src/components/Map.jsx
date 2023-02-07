@@ -28,7 +28,7 @@ function Map({ markingPoints, center }) {
                     >   
                         <div>
                             <h2>{activePoint.properties.name}</h2>
-                            {activePoint.help.needed ? <p>Yardım BEKLENİYOR</p> : <p>Yardım BEKLENMİYOR</p>}
+                            {activePoint.help.needed ? <p>Yardıma ihtiyaç VAR</p> : <p>Yardıma ihtiyaç yok</p>}
                             {<p><b>İhtiyaçlar: </b>{activePoint.help.message}</p>}
                             {<p><b>Son güncelleme tarihi:</b> activePoint.latest_information_date</p>}
                         </div>
