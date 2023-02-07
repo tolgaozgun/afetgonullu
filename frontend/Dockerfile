@@ -1,12 +1,20 @@
+# pull official base image
 FROM node:14
 
-WORKDIR /app
+# set working directory
+WORKDIR /frontend
 
-COPY package.json .
-COPY package-lock.json .
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /frontend/node_modules/.bin:$PATH
 
-RUN npm install
+# install app dependencies
+COPY package.json /frontend
+COPY package-lock.json /frontend
+RUN npm install --silent
+RUN npm install react-scripts@3.4.1 -g --silent
 
-COPY . .
+# add app
+COPY . /frontend
 
-CMD npm start
+# start app
+CMD ["npm", "start"]
