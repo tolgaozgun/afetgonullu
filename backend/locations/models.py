@@ -1,6 +1,7 @@
 from django.db import models
 
 class Location(models.Model):
+    name = models.TextField()
     latitude = models.FloatField()
     longitude = models.FloatField()
     needs_help = models.BooleanField(default=False)

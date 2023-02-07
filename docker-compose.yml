@@ -13,7 +13,7 @@ services:
     volumes:
       - ./backend:/app
     ports:
-      - 8000:8000
+      - 34:8000
     depends_on:
       - db
   frontend:
@@ -21,4 +21,4 @@ services:
     volumes:
       - ./frontend:/app
     ports:
-      - 3000:3000
+      - 33:3000

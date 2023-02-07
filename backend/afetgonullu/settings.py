@@ -29,9 +29,16 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 DJANGO_SETTINGS_MODULE='afetgonullu.settings'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "afetgonullu.com.tr",
+    "http://afetgonullu.com.tr",
+    "https://afetgonullu.com.tr",
+    "92.205.25.135",
+    "afetgonullu.xyz",
+    "http://afetgonullu.xyz"
+]
 
 
 # Application definition
