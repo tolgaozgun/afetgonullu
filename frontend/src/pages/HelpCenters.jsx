@@ -43,7 +43,7 @@ const HelpCenters = () => {
 		
 		// Get the help centers from the API
 		const getMarkingPoints = async () => {
-			const response = await fetch('/api/locations')
+			const response = await fetch('http://127.0.0.1:8000/api/locations')
 			const data = await response.json()
 			console.log(data)
 			setHelpCenters(data)
@@ -54,16 +54,16 @@ const HelpCenters = () => {
 
 
 	return (
-		<Grid container spacing={1}>
-			<Grid item xs={1}>
+		<Grid p={4} container spacing={1}>
+			<Grid item xs={8}>
+				<Map
+					markingPoints={helpCenters}
+				/>
+			</Grid>
+			<Grid item xs={4}>
 				<NearestHelpCentersList 
 					userPosition={currentPosition}
 					helpCenterPositions={helpCenters}
-				/>
-			</Grid>
-			<Grid item xs={3}>
-				<Map
-					markingPoints={helpCenters}
 				/>
 			</Grid>
 		</Grid>
