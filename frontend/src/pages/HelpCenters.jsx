@@ -1,10 +1,13 @@
+import { Box, Button } from '@mui/material';
+import TextField from '@mui/material/TextField';
+import { useEffect, useState } from 'react';
 import Map from "../components/Map";
-const { useEffect, useState } = require("react");
+import NearestHelpCentersList from '../components/NearestHelpCentersList';
 
 const HelpCenters = () => {
-    const [markingPoints, setMarkingPoints] = useState([])
-	const [currentPosition, setCurrentPosition] = useState({})
-
+    const [helpCenters, setHelpCenters] = useState([])
+	const [currentPosition, setCurrentPosition] = useState(null)
+	
 	// Fetch points from the database
 	const options = {
 	  enableHighAccuracy: true,
@@ -28,8 +31,8 @@ const HelpCenters = () => {
 		// Get and set the current position of the user
 		const setCurrentPosition = (position) => {
 			setCurrentPosition({
-				latitude: position.coords.latitude,
-				longitude: position.coords.longitude,
+				lat: position.coords.latitude,
+				lon: position.coords.longitude,
 			})
 		}
 		navigator.geolocation.getCurrentPosition(
@@ -43,58 +46,25 @@ const HelpCenters = () => {
 			const response = await fetch('/api/locations')
 			const data = await response.json()
 			console.log(data)
-			setMarkingPoints(data)
+			setHelpCenters(data)
 		}
 
 		getMarkingPoints()
 	}, [])
 
 
-  // //send the data on the state to the API
-  // function getData(url) {
-  //   fetch(url, {
-  //     method: "POST",
-  //     mode: "cors",
-  //     headers: {
-  //       "Access-Control-Allow-Origin": "https://www.afetgonullu.com.tr"
-  //     }
-  //   })
-  //     .then((response) => {
-  //       if (response.ok) {
-  //         return response.json();
-  //       }
-  //     })
-  //     .then((data) => {
-  //       setName(data[0].display_name);
-  //       setCorrds({
-  //         latitude: data[0].lat,
-  //         longitude: data[0].lon
-  //       });
-  //     })
-  //     .catch(() => error("Please Check your input"));
-  // }
-
-  // //set form input( data entered ) to state on form submit
-  // function submitHandler(e) {
-  //   e.preventDefault();
-  //   console.log(address);
-
-  //   let url = `https://nominatim.openstreetmap.org/search?
-  //     street=${address.street}
-  //     &city=${address.city}
-  //     &country=Turkey`
-
-  //   getData(url);
-  // }
-
-  return (
-    <div className="App">
-      <Map
-	  	markingPoints={markingPoints}
-		center={currentPosition}
-	  />
-    </div>
-  );
+	return (
+		<div>
+			<NearestHelpCentersList 
+				userPosition={currentPosition}
+				helpCenterPositions={helpCenters}
+			/>
+			<Map
+				markingPoints={helpCenters}
+				center={currentPosition}
+			/>
+		</div>
+	);
 }
 
 export default HelpCenters
