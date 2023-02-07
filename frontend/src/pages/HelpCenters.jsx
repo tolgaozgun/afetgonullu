@@ -6,7 +6,8 @@ import NearestHelpCentersList from '../components/NearestHelpCentersList';
 
 const HelpCenters = () => {
     const [helpCenters, setHelpCenters] = useState([])
-	const [currentPosition, setCurrentPosition] = useState(null)
+	const [currentPosition, setCurrentPosition] = useState(null) // Position of
+	const [mapView, setMapView] = useState(null)
 	
 	// Fetch points from the database
 	const options = {
@@ -29,14 +30,14 @@ const HelpCenters = () => {
 	
 	useEffect(() => {
 		// Get and set the current position of the user
-		const setCurrentPosition = (position) => {
+		const setGeolocation = (position) => {
 			setCurrentPosition({
 				lat: position.coords.latitude,
 				lon: position.coords.longitude,
 			})
 		}
 		navigator.geolocation.getCurrentPosition(
-			setCurrentPosition,
+			setGeolocation,
 			error,
 			options
 		)
@@ -55,15 +56,17 @@ const HelpCenters = () => {
 
 	return (
 		<Grid p={4} container spacing={1}>
-			<Grid item xs={8}>
+			<Grid item xs={9}>
 				<Map
 					markingPoints={helpCenters}
+					mapView={mapView}
 				/>
 			</Grid>
-			<Grid item xs={4}>
+			<Grid item xs={3}>
 				<NearestHelpCentersList 
 					userPosition={currentPosition}
 					helpCenterPositions={helpCenters}
+					setMapView={setMapView}
 				/>
 			</Grid>
 		</Grid>
