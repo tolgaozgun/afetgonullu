@@ -1,9 +1,12 @@
-import {Button} from '@mui/material';
+import {Button, TextField} from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import Cities from "../il.json"
+import Autocomplete from '@mui/material/Autocomplete'
 import { DataGrid, GridColumns, GridRowsProp } from '@mui/x-data-grid';
 
 
 function LocationDataGrid({ onUpdate, onCancel }) {
+  const [selectedLocation, setSelectedLocation] = useState('')
 
   const locations = [
     {
@@ -63,16 +66,37 @@ function LocationDataGrid({ onUpdate, onCancel }) {
 
     
     return (
-      <div style={{ display: 'flex', width: "100%", height: '100%' }}>
-        <div style={{ flexGrow: 1 }}>
-          <DataGrid
-            autoHeight
-            rows={locations}
-            columns={columns}
-            editMode="row"
+      <>
+      <Autocomplete
+              disablePortal
+              id="combo-box-demo"
+              options={Cities}
+              autoSelect
+              fullWidth
+              onChange={(event, value, reason, details) => {
+                  console.log(value)
+                  localStorage.setItem("latest_city", JSON.stringify(value))
+              }}
+              renderInput={(params) => 
+              
+              <TextField {...params} 
+              label="Şehir"
+              value={selectedLocation}
+              onChange={(event) => {
+                setSelectedLocation(event.target.value)
+              }} />}
           />
+          <div style={{ display: 'flex', width: "100%", height: '100%' }}>
+            <div style={{ flexGrow: 1 }}>
+              <DataGrid
+                autoHeight
+                rows={locations}
+                columns={columns}
+                editMode="row"
+              />
+            </div>
         </div>
-    </div>
+      </>
     );
   }
     
