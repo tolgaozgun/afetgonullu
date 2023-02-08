@@ -4,7 +4,7 @@ from .models import Location
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
-        fields = ['id', 'name', 'latitude', 'longitude', 'needs_people', "needs_donation", 'help_message', 'latest_information_date']
+        fields = ['id', 'name', 'severity', 'city', 'latitude', 'longitude', 'needs_people', "needs_donation", 'help_message', 'latest_information_date']
 
     def to_representation(self, instance):
         data = super().to_representation(instance)

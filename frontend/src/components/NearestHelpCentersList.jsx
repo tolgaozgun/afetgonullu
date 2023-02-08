@@ -103,14 +103,25 @@ const NearestHelpCentersList = ({
         <Box alignItems="center" justifyItems="center" 
             direction="row"
             spacing={0}
-            sx={{p:1}}>
-            <Grid container direction="row" alignItems="center" justify="center" spacing={2}>
-                <Grid item xs={8}>
+            sx={{
+                p:1,
+                top: "50px",
+                left: "50%",
+                marginLeft: "-150.9px",
+                minWidth: "300px",
+                position: "fixed",
+                zIndex: "9999"
+            }}>
+            {/* <Grid container direction="row" alignItems="center" justify="center" spacing={2}> */}
+                {/* <Grid item xs={8}> */}
                     <Autocomplete
+                        style={{
+                            backgroundColor: "white",
+                        }}
                         disablePortal
                         id="combo-box-demo"
                         options={Cities}
-                        autoSelect
+                        // autoSelect
                         fullWidth
                         onChange={(event, value, reason, details) => {
                             console.log(value)
@@ -120,8 +131,8 @@ const NearestHelpCentersList = ({
                         renderInput={(params) => 
                         
                         <TextField {...params} 
-                            error={error !== null}
-                            helperText={error ? error : ''}
+                            // error={error !== null}
+                            // helperText={error ? error : ''}
                             label="Şehir"
                             value={selectedLocation}
                             onChange={(event) => {
@@ -129,8 +140,8 @@ const NearestHelpCentersList = ({
                                 handleList(event.target.value)
                             }} />}
                         />
-                </Grid>
-                <Grid item xs={4} >
+                {/* </Grid> */}
+                {/* <Grid item xs={4} >
                     <FormControlLabel 
                             control={
                                 <Checkbox 
@@ -153,8 +164,8 @@ const NearestHelpCentersList = ({
                         } 
                         label="Yardım isteyenleri filtrele" 
                     />
-                </Grid>
-            </Grid>
+                </Grid> */}
+             {/* </Grid> */}
             {/* <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
                 {nearestCenters.map((nc) => (
                     <>

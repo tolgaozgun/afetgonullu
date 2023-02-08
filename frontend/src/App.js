@@ -4,6 +4,7 @@ import { Routes, Route, BrowserRouter} from "react-router-dom";
 import "./App.css";
 import HelpCenters from "./pages/HelpCenters";
 import LocationTable from "./pages/LocationTable";
+import AddLocation from "./pages/AddLocation";
 import SignIn from "./pages/SignIn";
 
 export default function App() {
@@ -11,6 +12,7 @@ export default function App() {
 	<BrowserRouter>
 		<Routes>
 			<Route path="/" element={<HelpCenters/>}/>
+			{/* <Route path="/konumekle" element={<AddLocation/>}/> */}
 			<Route path="/konumlar" element={<LocationTable/>}/>
 			<Route path="/giris" element={<SignIn/>}/>
 			<Route path="*" element={<HelpCenters />} />

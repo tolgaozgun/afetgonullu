@@ -2,6 +2,7 @@ from django.db import models
 
 class Location(models.Model):
     name = models.TextField()
+    city = models.TextField()
     latitude = models.FloatField()
     longitude = models.FloatField()
     needs_people = models.BooleanField(default=True)
