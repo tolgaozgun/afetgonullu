@@ -1,7 +1,6 @@
 import L from "leaflet";
 import { useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-// eslint-disable-next-line import/no-webpack-loader-syntax
 import { getCustomIconColor } from "../helpers/utils";
 import ActivePoint from "./ActivePoint";
 import "./Map.css";

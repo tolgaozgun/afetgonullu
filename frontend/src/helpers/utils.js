@@ -1,6 +1,4 @@
-/* eslint-disable import/no-webpack-loader-syntax */
 // // Severity is between 0-5 where 5 is the highest severity
-// eslint-disable-next-line import/no-webpack-loader-syntax
 const calcCrow = (lat1, lon1, lat2, lon2) => 
 {
   let R = 6371; // km
