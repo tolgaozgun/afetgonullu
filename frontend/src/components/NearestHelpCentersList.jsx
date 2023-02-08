@@ -107,7 +107,7 @@ const NearestHelpCentersList = ({
             spacing={0}
             sx={{
                 p:1,
-                top: "50px",
+                top: "10px",
                 left: "50%",
                 marginLeft: "-25%",
                 minWidth: "50%",
