@@ -1,13 +1,12 @@
 import L from "leaflet";
 import { useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-import { markerAddressLookup } from "../helpers/utils";
-import ExampleMarker from "../img/example.svg";
+import RedMarker from "../img/squat-marker-red.svg";
 import ActivePoint from "./ActivePoint";
 import "./Map.css";
 import RecenterMap from './RecenterMap';
 
-function Map({ markingPoints, mapView, center }) {
+function Map({ markingPoints, center }) {
     // markingPoints is an 
     const [activePoint, setActivePoint] = useState(null)
 
@@ -57,10 +56,9 @@ function Map({ markingPoints, mapView, center }) {
             }
             {
                 markingPoints.map(point => {
-                    const iconAddress = markerAddressLookup(point.severity)
                     const icon = new L.icon({
-                        iconUrl: ExampleMarker,
-                        iconRetinaUrl: ExampleMarker,
+                        iconUrl: RedMarker,
+                        iconRetinaUrl: RedMarker,
                         iconAnchor: null,
                         popupAnchor: null,
                         shadowUrl: null,
