@@ -12,7 +12,7 @@ function Map({ markingPoints, center }) {
 
     useEffect(() => {
         setActivePoint(null)
-    }, markingPoints)
+    }, [markingPoints])
 
     return (
         <MapContainer 
