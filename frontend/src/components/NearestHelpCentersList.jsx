@@ -1,14 +1,13 @@
 import { Box, Button, Checkbox, Divider, Grid, List, ListItem, ListItemButton, ListItemText, Stack, TextField } from "@mui/material"
 import Autocomplete from '@mui/material/Autocomplete'
 import FormControlLabel from '@mui/material/FormControlLabel'
-import FormGroup from '@mui/material/FormGroup'
 import { useEffect, useState } from "react"
-import calcCrow from "../helpers/utils"
+import { calcCrow } from "../helpers/utils"
 import Cities from "../il.json"
 import Counties from "../ilce.json"
 import "./NearestHelpCentersList.css"
 import RecenterMap from "./RecenterMap"
-
+ 
 const NearestHelpCentersList = ({ userPosition, helpCenterPositions, setMapView, setCenter}) => {
     const [selectedLocation, setSelectedLocation] = useState('')
     const [error, setError] = useState(null)
@@ -51,7 +50,6 @@ const NearestHelpCentersList = ({ userPosition, helpCenterPositions, setMapView,
         // const map = useMap()
         // map.setView([lat,long])
         setCenter([lat,long])
-        
     }
 
 
