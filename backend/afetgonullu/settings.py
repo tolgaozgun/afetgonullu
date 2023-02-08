@@ -45,12 +45,12 @@ ALLOWED_HOSTS = [
     "127.0.0.1"
 ]
 
-
 # Application definition
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
@@ -60,7 +60,9 @@ REST_FRAMEWORK = {
 
 INSTALLED_APPS = [
     'rest_framework',
+    'authentication',
     'locations',
+    'adminpanel',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -80,6 +82,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'afetgonullu.urls'
+
+
+AUTH_USER_MODEL = "authentication.User"
+
 
 TEMPLATES = [
     {
