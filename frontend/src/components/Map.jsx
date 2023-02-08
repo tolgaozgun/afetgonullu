@@ -1,6 +1,6 @@
 import L from "leaflet";
 import { useEffect, useState } from "react";
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
 import { getCustomIconColor } from "../helpers/utils";
 import ActivePoint from "./ActivePoint";
 import "./Map.css";
@@ -9,10 +9,15 @@ import RecenterMap from './RecenterMap';
 function Map({ markingPoints, center }) {
     // markingPoints is an 
     const [activePoint, setActivePoint] = useState(null)
-
+    const map = useMap()
+    
     useEffect(() => {
         setActivePoint(null)
     }, [markingPoints])
+
+    window.onclick((e) => {
+        setActivePoint(null)
+    })
 
     return (
         <MapContainer 
@@ -31,9 +36,6 @@ function Map({ markingPoints, center }) {
                             activePoint.geometry.lat,
                             activePoint.geometry.lon,
                         ]}
-                        onClose={() => {
-                            setActivePoint(null)
-                        }}
                     >   
                         <ActivePoint {...activePoint} />
                     </Popup>

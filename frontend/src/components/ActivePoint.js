@@ -3,11 +3,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
   const ActivePoint = (props) => {
-    const share = () => {
-      // logic to share the location
-    };
-  
-    console.log(props)
+
   
     return (
       <Grid container direction="column" alignItems="center" p={1}>
@@ -45,7 +41,7 @@ import { Link } from "react-router-dom";
             <Link 
               to={`http://maps.google.com/maps?z=12&t=m&q=loc:${props.latitude}+${props.longitude}`} 
               target="_blank">
-              <Button variant='contained' onClick={share} >Paylaş</Button>
+              <Button variant='contained'>Paylaş</Button>
             </Link>
           </Grid>
         </Grid>
