@@ -14,10 +14,6 @@ function Map({ markingPoints, center }) {
         setActivePoint(null)
     }, [markingPoints])
 
-    window.addEventListener("click", (e) => {
-        setActivePoint(null)
-    })
-
     return (
         <MapContainer 
             center={center} 
