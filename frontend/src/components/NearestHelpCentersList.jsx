@@ -1,10 +1,11 @@
-import { Box, Button, Checkbox, Divider, Grid, List, ListItem, ListItemButton, ListItemText, Stack, TextField } from "@mui/material"
+import { Box, Button, Checkbox, Divider, Drawer, Grid, IconButton, List, ListItem, ListItemButton, ListItemText, Stack, TextField } from "@mui/material"
 import Autocomplete from '@mui/material/Autocomplete'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import { useEffect, useState } from "react"
 import { calcCrow } from "../helpers/utils"
 import Cities from "../il.json"
 import Counties from "../ilce.json"
+import FilterDrawerContent from './FilterDrawerContent'
 import "./NearestHelpCentersList.css"
  
 const NearestHelpCentersList = ({ 
@@ -18,6 +19,7 @@ const NearestHelpCentersList = ({
     setNeedDonationFilter
 }) => {
     const [selectedLocation, setSelectedLocation] = useState('')
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false)
     const [error, setError] = useState(null)
     const [nearestCenters, setNearestCenters] = useState([])
 
@@ -112,60 +114,45 @@ const NearestHelpCentersList = ({
                 position: "fixed",
                 zIndex: "9999"
             }}>
-            {/* <Grid container direction="row" alignItems="center" justify="center" spacing={2}> */}
-                {/* <Grid item xs={8}> */}
-                    <Autocomplete
-                        style={{
-                            backgroundColor: "white",
-                        }}
-                        disablePortal
-                        id="combo-box-demo"
-                        options={Cities}
-                        // autoSelect
-                        fullWidth
-                        onChange={(event, value, reason, details) => {
-                            console.log(value)
-                            localStorage.setItem("latest_city", JSON.stringify(value))
-                            center(value.lat, value.lon)
-                        }}
-                        renderInput={(params) => 
-                        
-                        <TextField {...params} 
-                            // error={error !== null}
-                            // helperText={error ? error : ''}
-                            label="Şehir"
-                            value={selectedLocation}
-                            onChange={(event) => {
-                                setSelectedLocation(event.target.value)
-                                handleList(event.target.value)
-                            }} />}
-                        />
-                {/* </Grid> */}
-                {/* <Grid item xs={4} >
-                    <FormControlLabel 
-                            control={
-                                <Checkbox 
-                                    checked={needPeopleFilter}
-                                    onChange={(event) => {
-                                       setNeedPeopleFilter(event.target.checked)
-                                    }}
-                            />
-                        } 
-                        label="Gönüllü isteyenleri filtrele" 
-                    />
-                    <FormControlLabel 
-                        control={
-                            <Checkbox 
-                                checked={needDonationFilter}
-                                onChange={(event) => {
-                                    setNeedDonationFilter(event.target.checked)
-                                }}
-                            />
-                        } 
-                        label="Yardım isteyenleri filtrele" 
-                    />
-                </Grid> */}
-             {/* </Grid> */}
+            <Autocomplete
+                style={{
+                    backgroundColor: "white",
+                }}
+                disablePortal
+                id="combo-box-demo"
+                options={Cities}
+                // autoSelect
+                fullWidth
+                onChange={(event, value, reason, details) => {
+                    console.log(value)
+                    localStorage.setItem("latest_city", JSON.stringify(value))
+                    center(value.lat, value.lon)
+                }}
+                renderInput={(params) => 
+                
+                <TextField {...params} 
+                    // error={error !== null}
+                    // helperText={error ? error : ''}
+                    label="Şehir"
+                    value={selectedLocation}
+                    onChange={(event) => {
+                        setSelectedLocation(event.target.value)
+                        handleList(event.target.value)
+                    }} />}
+                />
+                <IconButton 
+                    size="large"
+                    onClick={() => setIsDrawerOpen(true)}
+                >
+
+                </IconButton>
+                <Drawer
+                    anchor="right"
+                    open={isDrawerOpen}
+                    onClose={() => setIsDrawerOpen(false)}
+                >
+                    <FilterDrawerContent />
+                </Drawer>
             {/* <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
                 {nearestCenters.map((nc) => (
                     <>
