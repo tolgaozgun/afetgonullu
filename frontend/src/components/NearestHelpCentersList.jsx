@@ -1,20 +1,25 @@
 import { Box, Button, Checkbox, Divider, Grid, List, ListItem, ListItemButton, ListItemText, Stack, TextField } from "@mui/material"
 import Autocomplete from '@mui/material/Autocomplete'
 import FormControlLabel from '@mui/material/FormControlLabel'
-import FormGroup from '@mui/material/FormGroup'
 import { useEffect, useState } from "react"
-import calcCrow from "../helpers/utils"
+import { calcCrow } from "../helpers/utils"
 import Cities from "../il.json"
 import Counties from "../ilce.json"
 import "./NearestHelpCentersList.css"
-import RecenterMap from "./RecenterMap"
-
-const NearestHelpCentersList = ({ userPosition, helpCenterPositions, setMapView, setCenter}) => {
+ 
+const NearestHelpCentersList = ({ 
+    userPosition, 
+    helpCenterPositions, 
+    setCenter, 
+    setFilteredNearestCenters,
+    needPeopleFilter,
+    setNeedPeopleFilter,
+    needDonationFilter,
+    setNeedDonationFilter
+}) => {
     const [selectedLocation, setSelectedLocation] = useState('')
     const [error, setError] = useState(null)
     const [nearestCenters, setNearestCenters] = useState([])
-    const [needPeople, setNeedPeople] = useState(true)
-    const [needDonation, setNeedDonation] = useState(true)
 
     const createNearestHelpCenters = async (lat, lon) => {
         const distances = []
@@ -26,7 +31,7 @@ const NearestHelpCentersList = ({ userPosition, helpCenterPositions, setMapView,
             })
         }
 
-        setMapView(lat, lon)
+        setCenter([lat, lon])
         setNearestCenters(distances.sort((a, b) => a.distance - b.distance))
     }
 
@@ -48,13 +53,8 @@ const NearestHelpCentersList = ({ userPosition, helpCenterPositions, setMapView,
     }
 
     const center = (lat, long) => {
-        // const map = useMap()
-        // map.setView([lat,long])
         setCenter([lat,long])
-        
     }
-
-
 
     useEffect(() => {
         const createBasedOnGeolocation = async() => {
@@ -77,6 +77,28 @@ const NearestHelpCentersList = ({ userPosition, helpCenterPositions, setMapView,
         await createNearestHelpCenters(lat, lon)
 	}
 
+    useEffect(() => {
+        console.log(helpCenterPositions)
+        const unfilteredCenters = [...helpCenterPositions]
+        const filteredCenters = unfilteredCenters.filter((c) => {
+            console.log(c)
+            if (needPeopleFilter && needDonationFilter) {
+                return c.needs_people && c.needs_help
+            }
+            else if (needPeopleFilter) {
+                return c.needs_people
+            }
+            else if (needDonationFilter) {
+                return c.needs_help
+            }
+            else {
+                return true
+            }
+        })
+        console.log(filteredCenters)
+        setFilteredNearestCenters(filteredCenters)
+    }, [needPeopleFilter, needDonationFilter])
+
     return (
         <Box alignItems="center" justifyItems="center" 
             direction="row"
@@ -98,23 +120,39 @@ const NearestHelpCentersList = ({ userPosition, helpCenterPositions, setMapView,
                         renderInput={(params) => 
                         
                         <TextField {...params} 
-                        error={error !== null}
-                        helperText={error ? error : ''}
-                        label="Şehir"
-                        value={selectedLocation}
-                        onChange={(event) => {
-                            setSelectedLocation(event.target.value)
-                            handleList(event.target.value)
-                        }} />}
-                    />
+                            error={error !== null}
+                            helperText={error ? error : ''}
+                            label="Şehir"
+                            value={selectedLocation}
+                            onChange={(event) => {
+                                setSelectedLocation(event.target.value)
+                                handleList(event.target.value)
+                            }} />}
+                        />
                 </Grid>
                 <Grid item xs={4} >
-                    <FormControlLabel control={<Checkbox onChange={(event) => {
-                        setNeedPeople(event.target.checked)
-                    }} defaultChecked />} label="Gönüllü isteyenleri filtrele" />
-                    <FormControlLabel control={<Checkbox onChange={(event) => {
-                        setNeedDonation(event.target.checked)
-                    }}/>} label="Yardım isteyenleri filtrele" />
+                    <FormControlLabel 
+                            control={
+                                <Checkbox 
+                                    checked={needPeopleFilter}
+                                    onChange={(event) => {
+                                       setNeedPeopleFilter(event.target.checked)
+                                    }}
+                            />
+                        } 
+                        label="Gönüllü isteyenleri filtrele" 
+                    />
+                    <FormControlLabel 
+                        control={
+                            <Checkbox 
+                                checked={needDonationFilter}
+                                onChange={(event) => {
+                                    setNeedDonationFilter(event.target.checked)
+                                }}
+                            />
+                        } 
+                        label="Yardım isteyenleri filtrele" 
+                    />
                 </Grid>
             </Grid>
             {/* <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>

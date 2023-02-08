@@ -1,7 +1,8 @@
 import L from "leaflet";
 import { useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-import RedMarker from "../img/squat-marker-red.svg";
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import { getCustomIconColor } from "../helpers/utils";
 import ActivePoint from "./ActivePoint";
 import "./Map.css";
 import RecenterMap from './RecenterMap';
@@ -11,7 +12,10 @@ function Map({ markingPoints, center }) {
     const [activePoint, setActivePoint] = useState(null)
 
     return (
-        <MapContainer center={center} zoom={7} zoomSettings={{ enable: true, toolbars: ['Zoom', 'ZoomIn', 'ZoomOut', 'Pan', 'Reset'] }}>
+        <MapContainer 
+            center={center} 
+            zoom={7} 
+            zoomSettings={{ enable: true, toolbars: ['Zoom', 'ZoomIn', 'ZoomOut', 'Pan', 'Reset'] }}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -34,16 +38,25 @@ function Map({ markingPoints, center }) {
             }
             {
                 markingPoints.map(point => {
-                    const icon = new L.icon({
-                        iconUrl: RedMarker,
-                        iconRetinaUrl: RedMarker,
-                        iconAnchor: null,
-                        popupAnchor: null,
-                        shadowUrl: null,
-                        shadowSize: null,
-                        shadowAnchor: null,
-                        iconSize: new L.Point(60, 75),
-                        className: 'leaflet-div-icon'
+                    const markerColor = getCustomIconColor(point.severity)
+                    const markerHtmlStyles = `
+                    background-color: ${markerColor};
+                        width: 3rem;
+                        height: 3rem;
+                        display: block;
+                        left: -1.5rem;
+                        top: -1.5rem;
+                        position: relative;
+                        border-radius: 3rem 3rem 0;
+                        transform: rotate(45deg);
+                        border: 1px solid #FFFFFF`
+
+                    const icon = L.divIcon({
+                        className: "my-custom-pin",
+                        iconAnchor: [0, 24],
+                        labelAnchor: [-6, 0],
+                        popupAnchor: [0, -36],
+                        html: `<span style="${markerHtmlStyles}" />`
                     })
                     return (
                         <Marker
