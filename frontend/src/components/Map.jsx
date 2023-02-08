@@ -14,7 +14,7 @@ function Map({ markingPoints, center }) {
         setActivePoint(null)
     }, [markingPoints])
 
-    window.onclick((e) => {
+    window.addEventListener("click", (e) => {
         setActivePoint(null)
     })
 
