@@ -47,7 +47,9 @@ const HelpCenters = () => {
 		
 		// Get the help centers from the API
 		const getMarkingPoints = async () => {
-			const response = await fetch('http://127.0.0.1:8000/api/locations')
+			// const response = await fetch('http://127.0.0.1:8000/api/locations')
+			const response = await fetch('/api/locations')
+
 			const data = await response.json()
 			console.log(data)
 			setHelpCenters(data)
