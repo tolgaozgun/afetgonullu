@@ -58,7 +58,6 @@ const getCustomIconColor = (severity) => {
             return "#FF0000"
         default:
             return "#808080"
-        
     }
 }
 

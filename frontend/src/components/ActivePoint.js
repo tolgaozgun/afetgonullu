@@ -1,8 +1,6 @@
+import { Button, Grid, Typography } from '@mui/material/';
 import React from 'react';
 import { Link } from "react-router-dom";
-// import DirectionsIcon from '@material-ui/icons/Directions';
-// import ShareIcon from '@material-ui/icons/Share';
-import { Button, Grid, Typography } from '@mui/material/';
 
   const ActivePoint = (props) => {
     const share = () => {

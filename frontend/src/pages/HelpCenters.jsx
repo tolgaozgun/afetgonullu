@@ -7,11 +7,11 @@ import NearestHelpCentersList from '../components/NearestHelpCentersList';
 const HelpCenters = () => {
     const [helpCenters, setHelpCenters] = useState([])
 	const [currentPosition, setCurrentPosition] = useState(null) // Position of
-	const [mapView, setMapView] = useState(null)
 	const [center, setCenter] = useState([39.028, 33.882])
-	const [selectedCity, setSelectedCity] = useState({})
+	const [needPeopleFilter, setNeedPeopleFilter] = useState(false)
+    const [needDonationFilter, setNeedDonationFilter] = useState(false)
+    const [filteredNearestCenters, setFilteredNearestCenters] = useState()
 
-	
 	// Fetch points from the database
 	const options = {
 	  enableHighAccuracy: true,
@@ -53,6 +53,7 @@ const HelpCenters = () => {
 			const data = await response.json()
 			console.log(data)
 			setHelpCenters(data)
+			setFilteredNearestCenters(data)
 		}
 
 		getMarkingPoints()
@@ -72,12 +73,15 @@ const HelpCenters = () => {
 			<NearestHelpCentersList 
 				userPosition={currentPosition}
 				helpCenterPositions={helpCenters}
-				setMapView={setMapView}
 				setCenter={setCenter}
-				/>
+				setFilteredNearestCenters={setFilteredNearestCenters}
+				needDonationFilter={needDonationFilter}
+				needPeopleFilter={needPeopleFilter}
+				setNeedDonationFilter={setNeedDonationFilter}
+				setNeedPeopleFilter={setNeedPeopleFilter}
+			/>
 			<Map
-				markingPoints={helpCenters}
-				mapView={mapView}
+				markingPoints={filteredNearestCenters}
 				center={center}
 				/>
 		</Stack>
