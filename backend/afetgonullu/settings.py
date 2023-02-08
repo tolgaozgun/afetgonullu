@@ -41,7 +41,8 @@ ALLOWED_HOSTS = [
     "https://afetgonullu.com.tr",
     "92.205.25.135",
     "afetgonullu.xyz",
-    "http://afetgonullu.xyz"
+    "http://afetgonullu.xyz",
+    "127.0.0.1"
 ]
 
 

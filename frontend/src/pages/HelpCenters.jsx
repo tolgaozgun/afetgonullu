@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Stack} from '@mui/material';
+import { Box, Button, Grid, Stack } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { useEffect, useState } from 'react';
 import Map from "../components/Map";
@@ -47,7 +47,9 @@ const HelpCenters = () => {
 		
 		// Get the help centers from the API
 		const getMarkingPoints = async () => {
+			// const response = await fetch('http://127.0.0.1:8000/api/locations')
 			const response = await fetch('/api/locations')
+
 			const data = await response.json()
 			console.log(data)
 			setHelpCenters(data)
@@ -79,12 +81,6 @@ const HelpCenters = () => {
 				center={center}
 				/>
 		</Stack>
-		// <Grid container spacing={1}>
-		// 	<Grid item xs={10}>
-		// 	</Grid>
-		// 	<Grid item xs={2}>
-		// 	</Grid>
-		// </Grid>
 	);
 }
 

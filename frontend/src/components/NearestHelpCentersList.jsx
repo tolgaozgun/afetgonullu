@@ -1,14 +1,13 @@
-import { Box, Button, Divider, List, ListItem, ListItemButton, ListItemText, Stack, TextField, Grid, Checkbox } from "@mui/material"
+import { Box, Button, Checkbox, Divider, Grid, List, ListItem, ListItemButton, ListItemText, Stack, TextField } from "@mui/material"
+import Autocomplete from '@mui/material/Autocomplete'
+import FormControlLabel from '@mui/material/FormControlLabel'
 import { useEffect, useState } from "react"
-import calcCrow from "../helpers/utils"
-import "./NearestHelpCentersList.css"
+import { calcCrow } from "../helpers/utils"
 import Cities from "../il.json"
 import Counties from "../ilce.json"
-import Autocomplete from '@mui/material/Autocomplete';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import "./NearestHelpCentersList.css"
 import RecenterMap from "./RecenterMap"
-
+ 
 const NearestHelpCentersList = ({ userPosition, helpCenterPositions, setMapView, setCenter}) => {
     const [selectedLocation, setSelectedLocation] = useState('')
     const [error, setError] = useState(null)
@@ -51,7 +50,6 @@ const NearestHelpCentersList = ({ userPosition, helpCenterPositions, setMapView,
         // const map = useMap()
         // map.setView([lat,long])
         setCenter([lat,long])
-        
     }
 
 
@@ -105,7 +103,6 @@ const NearestHelpCentersList = ({ userPosition, helpCenterPositions, setMapView,
                         onChange={(event) => {
                             setSelectedLocation(event.target.value)
                             handleList(event.target.value)
-                            // RecenterMap(event.)
                         }} />}
                     />
                 </Grid>
