@@ -76,14 +76,15 @@ const NearestHelpCentersList = ({ userPosition, helpCenterPositions, setMapView,
     return (
         <Box alignItems="center" justifyItems="center" 
         direction="column"
-        spacing={0}>
+        spacing={0}
+        sx={{p:1}}>
         <Stack spacing={2}>
             <Autocomplete
                 disablePortal
                 id="combo-box-demo"
                 options={Cities}
                 autoSelect
-                sx={{ width: 300 }}
+                fullWidth
                 onChange={(event, value, reason, details) => {
                     console.log(value)
                     localStorage.setItem("latest_city", JSON.stringify(value))
@@ -103,12 +104,12 @@ const NearestHelpCentersList = ({ userPosition, helpCenterPositions, setMapView,
                 }} />}
             />
 
-            <Button
+            {/* <Button
                 variant={"contained"}
                 onClick={handleList}
             >
                 En Yakın Merkezleri Listele
-            </Button>
+            </Button> */}
         </Stack>
             <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
                 {nearestCenters.map((nc) => (
