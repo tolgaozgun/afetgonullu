@@ -1,3 +1,5 @@
+
+
 const calcCrow = (lat1, lon1, lat2, lon2) => 
 {
   let R = 6371; // km
@@ -19,4 +21,21 @@ function toRad(Value)
     return Value * Math.PI / 180;
 }
 
-export default calcCrow
+const severityMap = {
+    "0": "red",
+    "1": 'orange',
+    "2": "yellow",
+    "3": "green",
+    "4": "gray",
+    "5": "blue",
+}
+
+const markerAddressLookup = (severity) => {
+    return `../img/marker-pin-${severityMap[severity]}`
+}
+
+export {
+    calcCrow,
+    markerAddressLookup
+};
+

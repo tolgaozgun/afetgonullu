@@ -1,5 +1,7 @@
+import L from "leaflet";
 import { useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { markerAddressLookup } from "../helpers/utils";
 import ActivePoint from "./ActivePoint";
 import "./Map.css";
 import RecenterMap from './RecenterMap';
@@ -39,6 +41,7 @@ function Map({ markingPoints, mapView, center }) {
             {
                 activePoint && (
                     <Popup
+                        minWidth={250}
                         position={[
                             activePoint.geometry.lat,
                             activePoint.geometry.lon,
@@ -52,22 +55,37 @@ function Map({ markingPoints, mapView, center }) {
                 )
             }
             {
-                markingPoints.map(point => (
-                    <Marker
-                        key={point.id}
-                        position={
-                            [
-                                point.geometry.lat,
-                                point.geometry.lon
-                            ]
-                        }
-                        eventHandlers={{
-                            click: (e) => {
-                                setActivePoint(point)
-                            },
-                        }}
-                />
-                ))
+                markingPoints.map(point => {
+                    const iconAddress = markerAddressLookup(point.severity)
+                    const icon = new L.icon({
+                        iconUrl: require("../img/example.svg"),
+                        iconRetinaUrl: require("../img/example.svg"),
+                        iconAnchor: null,
+                        popupAnchor: null,
+                        shadowUrl: null,
+                        shadowSize: null,
+                        shadowAnchor: null,
+                        iconSize: new L.Point(60, 75),
+                        className: 'leaflet-div-icon'
+                    })
+                    return (
+                        <Marker
+                            key={point.id}
+                            position={
+                                [
+                                    point.geometry.lat,
+                                    point.geometry.lon
+                                ]
+                            }
+                            eventHandlers={{
+                                click: (e) => {
+                                    setActivePoint(point)
+                                },
+                            }}
+                            icon={icon}
+                        />
+                    )}
+                )
             }
             <RecenterMap center={center}/>
         </MapContainer>
