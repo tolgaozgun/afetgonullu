@@ -9,7 +9,6 @@ import RecenterMap from './RecenterMap';
 function Map({ markingPoints, center }) {
     // markingPoints is an 
     const [activePoint, setActivePoint] = useState(null)
-    const map = useMap()
     
     useEffect(() => {
         setActivePoint(null)
@@ -74,6 +73,7 @@ function Map({ markingPoints, center }) {
                             }
                             eventHandlers={{
                                 click: (e) => {
+                                    e.stopPropagation()
                                     setActivePoint(point)
                                 },
                             }}
