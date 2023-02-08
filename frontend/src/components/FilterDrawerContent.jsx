@@ -1,4 +1,3 @@
-import FilterListIcon from '@mui/icons-material/FilterList';
 import { Checkbox, FormControlLabel, Grid } from "@mui/material";
 
 const FilterDrawerContent = ({ needPeopleFilter, setNeedPeopleFilter, needDonationFilter, setNeedDonationFilter }) => {
