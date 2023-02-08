@@ -54,15 +54,14 @@ function LocationDataGrid({ onUpdate, onCancel }) {
 ]
 
   const columns = [
-    { field: "name", headerName: "Name", width: "20%" },
-    { field: "city", headerName: "Şehir", width: "15%"},
-    { field: "needs_people", headerName: "Needs People", type: "boolean", editable: true, width: "5%" },
-    { field: "needs_donation", headerName: "Needs Donation", type: "boolean", editable: true, width: "5%" },
-    { field: "help_message", headerName: "Help Message", width: "30%", editable: true },
-    { field: "severity", headerName: "Severity", type: "numeric", width: "5%", editable: true },
-    { field: "latest_information_date", headerName: "Latest Information Date", width: "20%", type: "datetime" },
+    { field: "name", headerName: "Name", flex: 3, minWidth: 150},
+    { field: "city", headerName: "Şehir", flex: 2, minWidth: 130},
+    { field: "needs_people", headerName: "Needs People", type: "boolean", flex: 2, minWidth: 100 },
+    { field: "needs_donation", headerName: "Needs Donation", type: "boolean", editable: true, flex: 2, minWidth: 100 },
+    { field: "help_message", headerName: "Help Message", editable: true, flex: 4, minWidth: 100 },
+    { field: "severity", headerName: "Severity", type: "numeric", editable: true, flex: 2, minWidth: 100 },
+    { field: "latest_information_date", headerName: "Latest Information Date", type: "datetime", flex: 3, minWidth: 200 },
   ];  
-
     
     return (
       <>
