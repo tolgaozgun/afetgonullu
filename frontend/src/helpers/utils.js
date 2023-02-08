@@ -1,13 +1,6 @@
 /* eslint-disable import/no-webpack-loader-syntax */
 // // Severity is between 0-5 where 5 is the highest severity
 // eslint-disable-next-line import/no-webpack-loader-syntax
-import BlueMarker from "../img/squat-marker-blue.png"
-import GreenMarker from "../img/squat-marker-green.png"
-import GreyMarker from "../img/squat-marker-grey.png"
-import OrangeMarker from "../img/squat-marker-orange.png"
-import RedMarker from "../img/squat-marker-red.png"
-import YellowMarker from "../img/squat-marker-yellow.png"
-
 const calcCrow = (lat1, lon1, lat2, lon2) => 
 {
   let R = 6371; // km
@@ -51,5 +44,5 @@ const getCustomIconColor = (severity) => {
 export {
     calcCrow,
     getCustomIconColor,
-}
+};
 
