@@ -54,13 +54,13 @@ function LocationDataGrid({ onUpdate, onCancel }) {
 ]
 
   const columns = [
-    { field: "name", headerName: "Name" },
-    { field: "city", headerName: "Şehir"},
-    { field: "needs_people", headerName: "Needs People", type: "boolean" },
-    { field: "needs_donation", headerName: "Needs Donation", type: "boolean", editable: true },
-    { field: "help_message", headerName: "Help Message", editable: true },
-    { field: "severity", headerName: "Severity", type: "numeric", editable: true },
-    { field: "latest_information_date", headerName: "Latest Information Date", type: "datetime" },
+    { field: "name", headerName: "Name", width: "20%" },
+    { field: "city", headerName: "Şehir", width: "15%"},
+    { field: "needs_people", headerName: "Needs People", type: "boolean", editable: true, width: "5%" },
+    { field: "needs_donation", headerName: "Needs Donation", type: "boolean", editable: true, width: "5%" },
+    { field: "help_message", headerName: "Help Message", width: "30%", editable: true },
+    { field: "severity", headerName: "Severity", type: "numeric", width: "5%", editable: true },
+    { field: "latest_information_date", headerName: "Latest Information Date", width: "20%", type: "datetime" },
   ];  
   columns.forEach((c) => c.width = 100)
   
