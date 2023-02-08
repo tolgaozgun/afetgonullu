@@ -1,55 +1,80 @@
-import { TableCell, TableHead, TableRow, Paper, makeStyles, Table, TableBody} from '@mui/material';
+import {Button} from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { DataGrid, GridColumns, GridRowsProp } from '@mui/x-data-grid';
 
 
+function LocationDataGrid({ onUpdate, onCancel }) {
 
-function LocationTable() {
-  const [helpCenters, setHelpCenters] = useState([])
+  const locations = [
+    {
+        "id": 4,
+        "name": "Gulcimen Aspava",
+        "latitude": 39.9276529,
+        "longitude": 32.8094168,
+        "needs_people": true,
+        "needs_donation": true,
+        "help_message": "Yardim\\n\r\nYardim2",
+        "latest_information_date": "2023-02-07T22:50:47.893307Z",
+        "geometry": {
+            "lat": 39.9276529,
+            "lon": 32.8094168
+        },
+        "help": {
+            "needed": true,
+            "message": "Yardim\\n\r\nYardim2"
+        },
+        "properties": {
+            "name": "Gulcimen Aspava"
+        }
+    },
+    {
+        "id": 5,
+        "name": "Yardim Konumu 1",
+        "latitude": 40.1,
+        "longitude": 32.8094168,
+        "needs_people": true,
+        "needs_donation": true,
+        "help_message": "Ihtiyac malzemeleri:\r\nBez\r\nMama\r\nGiysi\r\nBot\r\nBattaniye\r\nIsitici",
+        "latest_information_date": "2023-02-08T09:34:51.169757Z",
+        "geometry": {
+            "lat": 40.1,
+            "lon": 32.8094168
+        },
+        "help": {
+            "needed": true,
+            "message": "Ihtiyac malzemeleri:\r\nBez\r\nMama\r\nGiysi\r\nBot\r\nBattaniye\r\nIsitici"
+        },
+        "properties": {
+            "name": "Yardim Konumu 1"
+        }
+    }
+]
 
-  const getData = async () => {
-    const response = await fetch('/api/locations')
-    const data = await response.json()
-    setHelpCenters(data)
+  const columns = [
+    { field: "name", headerName: "Name" },
+    { field: "latitude", headerName: "Latitude", type: "numeric", editable: true },
+    { field: "longitude", headerName: "Longitude", type: "numeric"},
+    { field: "needs_people", headerName: "Needs People", type: "boolean" },
+    { field: "needs_donation", headerName: "Needs Donation", type: "boolean", editable: true },
+    { field: "help_message", headerName: "Help Message", editable: true },
+    { field: "severity", headerName: "Severity", type: "numeric", editable: true },
+    { field: "latest_information_date", headerName: "Latest Information Date", type: "datetime" },
+  ];  
+
+    
+    return (
+      <div style={{ display: 'flex', width: "100%", height: '100%' }}>
+        <div style={{ flexGrow: 1 }}>
+          <DataGrid
+            autoHeight
+            rows={locations}
+            columns={columns}
+            editMode="row"
+          />
+        </div>
+    </div>
+    );
   }
-  
-  useEffect(() => {
-    getData()
-  }, [])
+    
+export default LocationDataGrid;
 
-  return (
-    <Paper >
-      <Table  aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell align="right">Latitude</TableCell>
-            <TableCell align="right">Longitude</TableCell>
-            <TableCell align="right">Needs People</TableCell>
-            <TableCell align="right">Needs Donation</TableCell>
-            <TableCell align="right">Help Message</TableCell>
-            <TableCell align="right">Severity</TableCell>
-            <TableCell align="right">Latest Information Date</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {helpCenters.map((location) => (
-            <TableRow key={location.name}>
-              <TableCell component="th" scope="row">
-                {location.name}
-              </TableCell>
-              <TableCell align="right">{location.latitude}</TableCell>
-              <TableCell align="right">{location.longitude}</TableCell>
-              <TableCell align="right">{location.needs_people ? 'Yes' : 'No'}</TableCell>
-              <TableCell align="right">{location.needs_donation ? 'Yes' : 'No'}</TableCell>
-              <TableCell align="right">{location.help_message || '-'}</TableCell>
-              <TableCell align="right">{location.severity}</TableCell>
-              <TableCell align="right">{location.latest_information_date}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </Paper>
-  );
-}
-
-export default LocationTable;
