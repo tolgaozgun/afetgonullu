@@ -8,6 +8,28 @@ function Map({ markingPoints, mapView, center }) {
     // markingPoints is an 
     const [activePoint, setActivePoint] = useState(null)
 
+    markingPoints = [{
+        "id": 4,
+        "name": "Gulcimen Aspava",
+        "latitude": 39.9276529,
+        "longitude": 32.8094168,
+        "needs_people": true,
+        "needs_donation": true,
+        "help_message": "Yardim",
+        "latest_information_date": "2023-02-07T22:50:47.893307Z",
+        "geometry": {
+            "lat": 39.9276529,
+            "lon": 32.8094168
+        },
+        "help": {
+            "needed": true,
+            "message": "Yardim"
+        },
+        "properties": {
+            "name": "Gulcimen Aspava"
+        }
+    }]
+
     return (
         <MapContainer center={center} zoom={7} zoomSettings={{ enable: true, toolbars: ['Zoom', 'ZoomIn', 'ZoomOut', 'Pan', 'Reset'] }}>
             <TileLayer
@@ -25,14 +47,7 @@ function Map({ markingPoints, mapView, center }) {
                             setActivePoint(null)
                         }}
                     >   
-                        <ActivePoint props={activePoint} />
-                        {/* <div>
-
-                            <h2>{activePoint.properties.name}</h2>
-                            {activePoint.help.needed ? <p>Yardım BEKLENİYOR</p> : <p>Yardım BEKLENMİYOR</p>}
-                            {<p><b>İhtiyaçlar: </b>{activePoint.help.message}</p>}
-                            {<p><b>Son güncelleme tarihi:</b> activePoint.latest_information_date</p>}
-                        </div> */}
+                        <ActivePoint {...activePoint} />
                     </Popup>
                 )
             }
@@ -46,10 +61,12 @@ function Map({ markingPoints, mapView, center }) {
                                 point.geometry.lon
                             ]
                         }
-                        onClick={() => {
-                            setActivePoint(point)
+                        eventHandlers={{
+                            click: (e) => {
+                                setActivePoint(point)
+                            },
                         }}
-                    />
+                />
                 ))
             }
             <RecenterMap center={center}/>

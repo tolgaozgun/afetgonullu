@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
     const getDirections = () => {
       // logic to get directions to the location
     };
+
+    
+    console.log(props)
   
     return (
       <Grid container direction="column" alignItems="center" className={classes.root}>
