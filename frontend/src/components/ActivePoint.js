@@ -32,8 +32,8 @@ const useStyles = makeStyles((theme) => ({
       <Grid container direction="column" alignItems="center" className={classes.root}>
         <h3 variant="h6">{props.name}</h3>
         <Grid item container direction="row" alignItems="center" className={classes.needs}>
-          {props.needs_people && <p variant="p">Gönüllü lazım</p>}
-          {props.needs_donation && <p variant="p">Bağış lazım</p>}
+          {props.needs_people ? <p>Gönüllü lazım</p> : <p>Gönüllü lazım değil</p>}
+          {props.needs_donation ? <p>Bağış lazım</p> : <p>Bağış lazım değil</p> }
         </Grid>
         {props.help_message && <p variant="body2">{props.help_message}</p>}
         <Grid item container direction="row" alignItems="center" className={classes.needs}>
