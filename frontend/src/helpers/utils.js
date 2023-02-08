@@ -29,19 +29,6 @@ function toRad(Value)
     return Value * Math.PI / 180;
 }
 
-const severityMap = {
-    "0": "red",
-    "1": 'orange',
-    "2": "yellow",
-    "3": "green",
-    "4": "gray",
-    "5": "blue",
-}
-
-const markerAddressLookup = (severity) => {
-    return `../img/marker-pin-${severityMap[severity]}`
-}
-
 const getCustomIconColor = (severity) => {
     switch (severity) {
         case "0":
@@ -63,7 +50,6 @@ const getCustomIconColor = (severity) => {
 
 export {
     calcCrow,
-    markerAddressLookup,
-    getCustomIconColor
+    getCustomIconColor,
 }
 
