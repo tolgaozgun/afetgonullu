@@ -129,30 +129,31 @@ const NearestHelpCentersList = ({
                     center(value.lat, value.lon)
                 }}
                 renderInput={(params) => 
-                
-                <TextField {...params} 
-                    // error={error !== null}
-                    // helperText={error ? error : ''}
-                    label="Şehir"
-                    value={selectedLocation}
-                    onChange={(event) => {
-                        setSelectedLocation(event.target.value)
-                        handleList(event.target.value)
-                    }} />}
-                />
-                <IconButton 
-                    size="large"
-                    onClick={() => setIsDrawerOpen(true)}
-                >
+                    <TextField {...params} 
+                        // error={error !== null}
+                        // helperText={error ? error : ''}
+                        label="Şehir"
+                        value={selectedLocation}
+                        onChange={(event) => {
+                            setSelectedLocation(event.target.value)
+                            handleList(event.target.value)
+                        }} 
+                    />
+                }
+            />
+            <IconButton 
+                size="large"
+                onClick={() => setIsDrawerOpen(true)}
+            >
 
-                </IconButton>
-                <Drawer
-                    anchor="right"
-                    open={isDrawerOpen}
-                    onClose={() => setIsDrawerOpen(false)}
-                >
-                    <FilterDrawerContent />
-                </Drawer>
+            </IconButton>
+            <Drawer
+                anchor="right"
+                open={isDrawerOpen}
+                onClose={() => setIsDrawerOpen(false)}
+            >
+                <FilterDrawerContent />
+            </Drawer>
             {/* <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
                 {nearestCenters.map((nc) => (
                     <>
