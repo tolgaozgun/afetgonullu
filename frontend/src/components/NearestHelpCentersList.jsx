@@ -52,6 +52,7 @@ const NearestHelpCentersList = ({ userPosition, helpCenterPositions, setMapView,
     }
 
 
+
     useEffect(() => {
         const createBasedOnGeolocation = async() => {
             await createNearestHelpCenters(userPosition.lat, userPosition.lon)
