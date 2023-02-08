@@ -7,6 +7,7 @@ class Location(models.Model):
     needs_people = models.BooleanField(default=True)
     needs_donation = models.BooleanField(default=True)
     help_message = models.TextField(null=True, blank=True)
+    severity = models.IntegerField()
     latest_information_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
