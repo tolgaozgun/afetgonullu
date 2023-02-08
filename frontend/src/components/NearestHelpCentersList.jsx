@@ -83,13 +83,13 @@ const NearestHelpCentersList = ({
         const filteredCenters = unfilteredCenters.filter((c) => {
             console.log(c)
             if (needPeopleFilter && needDonationFilter) {
-                return c.needs_people && c.needs_help
+                return c.needs_people && c.needs_donation
             }
             else if (needPeopleFilter) {
                 return c.needs_people
             }
             else if (needDonationFilter) {
-                return c.needs_help
+                return c.needs_donation
             }
             else {
                 return true
