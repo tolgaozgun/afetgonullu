@@ -35,7 +35,7 @@ function Map({ markingPoints, center }) {
                     </Popup>
                 )
             }
-            {
+            { markingPoints &&
                 markingPoints.map(point => {
                     const markerColor = getCustomIconColor(point.severity)
                     const markerHtmlStyles = `
