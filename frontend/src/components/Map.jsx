@@ -1,5 +1,5 @@
 import L from "leaflet";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { getCustomIconColor } from "../helpers/utils";
 import ActivePoint from "./ActivePoint";
@@ -9,6 +9,10 @@ import RecenterMap from './RecenterMap';
 function Map({ markingPoints, center }) {
     // markingPoints is an 
     const [activePoint, setActivePoint] = useState(null)
+
+    useEffect(() => {
+        setActivePoint(null)
+    }, markingPoints)
 
     return (
         <MapContainer 
