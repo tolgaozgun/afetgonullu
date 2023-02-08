@@ -42,22 +42,22 @@ const markerAddressLookup = (severity) => {
     return `../img/marker-pin-${severityMap[severity]}`
 }
 
-const getCustomIcon = (severity) => {
+const getCustomIconColor = (severity) => {
     switch (severity) {
         case "0":
-            return BlueMarker
+            return "#0000FF"
         case "1":
-            return GreyMarker
+            return "#808080"
         case "2":
-            return GreenMarker
+            return "#00FF00"
         case "3":
-            return YellowMarker
+            return "#FFFF00"
         case "4":
-            return OrangeMarker
+            return "#FFA500"
         case "5":
-            return RedMarker
+            return "#FF0000"
         default:
-            return GreyMarker
+            return "#808080"
         
     }
 }
@@ -65,6 +65,6 @@ const getCustomIcon = (severity) => {
 export {
     calcCrow,
     markerAddressLookup,
-    getCustomIcon
+    getCustomIconColor
 }
 

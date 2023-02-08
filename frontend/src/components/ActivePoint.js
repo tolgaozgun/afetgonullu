@@ -9,12 +9,6 @@ import { Button, Grid, Typography } from '@mui/material/';
       // logic to share the location
     };
   
-    const getDirections = () => {
-      // logic to get directions to the location
-      window.location.href = `http://maps.google.com/maps?z=12&t=m&q=loc:${props.latitude}+${props.geometry.longitude}`
-    };
-
-    
     console.log(props)
   
     return (
@@ -34,7 +28,7 @@ import { Button, Grid, Typography } from '@mui/material/';
         <Grid item container direction="column" alignItems="center" spacing={2}>
           <Grid item>
             <Link to={`http://maps.google.com/maps?z=12&t=m&q=loc:${props.latitude}+${props.longitude}`} target="_blank">
-              <Button variant='contained' onClick={getDirections}>Yol Tarifi</Button>
+              <Button variant='contained'>Yol Tarifi</Button>
             </Link>
           </Grid>
           <Grid item>
