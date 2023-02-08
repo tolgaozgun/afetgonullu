@@ -83,7 +83,7 @@ const HelpCenters = () => {
 			<Map
 				markingPoints={filteredNearestCenters}
 				center={center}
-				/>
+			/>
 		</Stack>
 	);
 }

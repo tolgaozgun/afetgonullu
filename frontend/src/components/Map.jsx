@@ -41,7 +41,7 @@ function Map({ markingPoints, center }) {
             }
             { markingPoints &&
                 markingPoints.map(point => {
-                    const markerColor = getCustomIconColor(point.severity)
+                    const markerColor = getCustomIconColor(point.severity.toString())
                     const markerHtmlStyles = `
                     background-color: ${markerColor};
                         width: 3rem;
