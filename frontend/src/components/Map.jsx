@@ -1,7 +1,6 @@
 import L from "leaflet";
 import { useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-import { getCustomIcon } from "../helpers/utils";
 import RedMarker from "../img/squat-marker-red";
 import ActivePoint from "./ActivePoint";
 import "./Map.css";
