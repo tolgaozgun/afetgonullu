@@ -6,7 +6,7 @@ import HelpCenters from "./pages/HelpCenters";
 import LocationTable from "./pages/LocationTable";
 import AddLocation from "./pages/AddLocation";
 import SignIn from "./pages/SignIn";
-import SignIn from "./pages/UpdateLocationPage";
+import UpdateLocationPage from "./pages/UpdateLocationPage";
 
 export default function App() {
 	return (

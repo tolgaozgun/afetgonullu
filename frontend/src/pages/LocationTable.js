@@ -55,8 +55,7 @@ function LocationDataGrid({ onUpdate, onCancel }) {
 
   const columns = [
     { field: "name", headerName: "Name" },
-    { field: "latitude", headerName: "Latitude", type: "numeric", editable: true },
-    { field: "longitude", headerName: "Longitude", type: "numeric"},
+    { field: "city", headerName: "Şehir"},
     { field: "needs_people", headerName: "Needs People", type: "boolean" },
     { field: "needs_donation", headerName: "Needs Donation", type: "boolean", editable: true },
     { field: "help_message", headerName: "Help Message", editable: true },
