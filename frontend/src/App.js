@@ -6,6 +6,7 @@ import HelpCenters from "./pages/HelpCenters";
 import LocationTable from "./pages/LocationTable";
 import AddLocation from "./pages/AddLocation";
 import SignIn from "./pages/SignIn";
+import SignIn from "./pages/UpdateLocationPage";
 
 export default function App() {
 	return (
@@ -15,7 +16,7 @@ export default function App() {
 			{/* <Route path="/konumekle" element={<AddLocation/>}/> */}
 			<Route path="/konumlar" element={<LocationTable/>}/>
 			<Route path="/giris" element={<SignIn/>}/>
-			<Route path="/updateLocation" element={<UpdateLocalationPage/>}/>
+			<Route path="/updateLocation" element={<UpdateLocationPage/>}/>
 			<Route path="*" element={<HelpCenters />} />
 		</Routes>
 	</BrowserRouter>
