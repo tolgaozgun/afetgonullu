@@ -1,7 +1,7 @@
 import L from "leaflet";
 import { useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-import RedMarker from "../img/squat-marker-red";
+import RedMarker from "../img/squat-marker-red.svg";
 import ActivePoint from "./ActivePoint";
 import "./Map.css";
 import RecenterMap from './RecenterMap';
