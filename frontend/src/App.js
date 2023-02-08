@@ -15,6 +15,7 @@ export default function App() {
 			{/* <Route path="/konumekle" element={<AddLocation/>}/> */}
 			<Route path="/konumlar" element={<LocationTable/>}/>
 			<Route path="/giris" element={<SignIn/>}/>
+			<Route path="/updateLocation" element={<UpdateLocalationPage/>}/>
 			<Route path="*" element={<HelpCenters />} />
 		</Routes>
 	</BrowserRouter>
