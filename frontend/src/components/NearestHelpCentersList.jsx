@@ -3,8 +3,12 @@ import { useEffect, useState } from "react"
 import { useMap } from "react-leaflet"
 import calcCrow from "../helpers/utils"
 import "./NearestHelpCentersList.css"
+import Cities from "../il.json"
+import Counties from "../ilce.json"
+import Autocomplete from '@mui/material/Autocomplete';
+import RecenterMap from "./RecenterMap"
 
-const NearestHelpCentersList = ({ userPosition, helpCenterPositions, setMapView}) => {
+const NearestHelpCentersList = ({ userPosition, helpCenterPositions, setMapView, setCenter}) => {
     const [selectedLocation, setSelectedLocation] = useState('')
     const [error, setError] = useState(null)
     const [nearestCenters, setNearestCenters] = useState([])
@@ -40,6 +44,13 @@ const NearestHelpCentersList = ({ userPosition, helpCenterPositions, setMapView}
         return { lat: data[0].lat, lon: data[0].lon }
     }
 
+    const center = (lat, long) => {
+        // const map = useMap()
+        // map.setView([lat,long])
+        setCenter([lat,long])
+        
+    }
+
 
     useEffect(() => {
         const createBasedOnGeolocation = async() => {
@@ -67,7 +78,20 @@ const NearestHelpCentersList = ({ userPosition, helpCenterPositions, setMapView}
         direction="column"
         spacing={0}>
         <Stack spacing={2}>
-            <TextField
+            <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                options={Cities}
+                autoSelect
+                sx={{ width: 300 }}
+                onChange={(event, value, reason, details) => {
+                    console.log(value)
+                    localStorage.setItem("latest_city", JSON.stringify(value))
+                    center(value.lat, value.lon)
+                }}
+                renderInput={(params) => 
+                
+                <TextField {...params} 
                 error={error !== null}
                 helperText={error ? error : ''}
                 label="Şehir"
@@ -75,8 +99,10 @@ const NearestHelpCentersList = ({ userPosition, helpCenterPositions, setMapView}
                 onChange={(event) => {
                     setSelectedLocation(event.target.value)
                     handleList(event.target.value)
-                }}
+                    // RecenterMap(event.)
+                }} />}
             />
+
             <Button
                 variant={"contained"}
                 onClick={handleList}

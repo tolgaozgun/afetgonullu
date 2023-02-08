@@ -3,12 +3,12 @@ import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import "./Map.css";
 import RecenterMap from './RecenterMap';
 
-function Map({ markingPoints, mapView }) {
+function Map({ markingPoints, mapView, center }) {
     // markingPoints is an 
     const [activePoint, setActivePoint] = useState(null)
-    
+
     return (
-        <MapContainer center={[39.028,33.882]} zoom={7}  zoomSettings={{ enable: true, toolbars: ['Zoom', 'ZoomIn', 'ZoomOut', 'Pan', 'Reset'] }}>
+        <MapContainer center={center} zoom={7} zoomSettings={{ enable: true, toolbars: ['Zoom', 'ZoomIn', 'ZoomOut', 'Pan', 'Reset'] }}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -49,7 +49,7 @@ function Map({ markingPoints, mapView }) {
                     />
                 ))
             }
-            <RecenterMap lat={mapView?.lat || ''} lon={mapView?.lon || ''}/>
+            <RecenterMap center={center}/>
         </MapContainer>
     );
 }

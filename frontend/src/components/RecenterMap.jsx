@@ -1,11 +1,14 @@
 import { useEffect } from "react";
 import { useMap } from "react-leaflet";
 
-const RecenterMap = ({ lat, lon }) => {
+const RecenterMap = ({ center }) => {
     const map = useMap()
     useEffect(() => {
-        map.setView([lat, lon])
-    }, [lat, lon])
+        if(center !== undefined){
+            map.setView(center)
+            map.setZoom(12)
+        }
+    }, [center])
     return null
 }
  

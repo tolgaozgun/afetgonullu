@@ -8,6 +8,8 @@ const HelpCenters = () => {
     const [helpCenters, setHelpCenters] = useState([])
 	const [currentPosition, setCurrentPosition] = useState(null) // Position of
 	const [mapView, setMapView] = useState(null)
+	const [center, setCenter] = useState([39.028, 33.882])
+
 	
 	// Fetch points from the database
 	const options = {
@@ -51,6 +53,14 @@ const HelpCenters = () => {
 		}
 
 		getMarkingPoints()
+
+		const latest_city = localStorage.getItem("latest_city", null)
+
+		if(latest_city !== null){
+			let city_json = JSON.parse(latest_city)
+			setCenter([city_json.lat, city_json.lon])
+		}
+
 	}, [])
 
 
@@ -60,6 +70,7 @@ const HelpCenters = () => {
 				<Map
 					markingPoints={helpCenters}
 					mapView={mapView}
+					center={center}
 				/>
 			</Grid>
 			<Grid item xs={2}>
@@ -67,6 +78,7 @@ const HelpCenters = () => {
 					userPosition={currentPosition}
 					helpCenterPositions={helpCenters}
 					setMapView={setMapView}
+					setCenter={setCenter}
 				/>
 			</Grid>
 		</Grid>
