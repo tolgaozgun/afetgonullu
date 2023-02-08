@@ -4,7 +4,8 @@ class Location(models.Model):
     name = models.TextField()
     latitude = models.FloatField()
     longitude = models.FloatField()
-    needs_help = models.BooleanField(default=False)
+    needs_people = models.BooleanField(default=True)
+    needs_donation = models.BooleanField(default=True)
     help_message = models.TextField(null=True, blank=True)
     latest_information_date = models.DateTimeField(auto_now_add=True)
 

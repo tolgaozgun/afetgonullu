@@ -1,4 +1,4 @@
-import { Box, Button, Divider, List, ListItem, ListItemButton, ListItemText, Stack, TextField } from "@mui/material"
+import { Box, Button, Divider, List, ListItem, ListItemButton, ListItemText, Stack, TextField, Grid, Checkbox } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useMap } from "react-leaflet"
 import calcCrow from "../helpers/utils"
@@ -6,12 +6,16 @@ import "./NearestHelpCentersList.css"
 import Cities from "../il.json"
 import Counties from "../ilce.json"
 import Autocomplete from '@mui/material/Autocomplete';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import RecenterMap from "./RecenterMap"
 
 const NearestHelpCentersList = ({ userPosition, helpCenterPositions, setMapView, setCenter}) => {
     const [selectedLocation, setSelectedLocation] = useState('')
     const [error, setError] = useState(null)
     const [nearestCenters, setNearestCenters] = useState([])
+    const [needPeople, setNeedPeople] = useState(true)
+    const [needDonation, setNeedDonation] = useState(true)
 
     const createNearestHelpCenters = async (lat, lon) => {
         const distances = []
@@ -76,43 +80,46 @@ const NearestHelpCentersList = ({ userPosition, helpCenterPositions, setMapView,
 
     return (
         <Box alignItems="center" justifyItems="center" 
-        direction="column"
-        spacing={0}
-        sx={{p:1}}>
-        <Stack spacing={2}>
-            <Autocomplete
-                disablePortal
-                id="combo-box-demo"
-                options={Cities}
-                autoSelect
-                fullWidth
-                onChange={(event, value, reason, details) => {
-                    console.log(value)
-                    localStorage.setItem("latest_city", JSON.stringify(value))
-                    center(value.lat, value.lon)
-                }}
-                renderInput={(params) => 
-                
-                <TextField {...params} 
-                error={error !== null}
-                helperText={error ? error : ''}
-                label="Şehir"
-                value={selectedLocation}
-                onChange={(event) => {
-                    setSelectedLocation(event.target.value)
-                    handleList(event.target.value)
-                    // RecenterMap(event.)
-                }} />}
-            />
-
-            {/* <Button
-                variant={"contained"}
-                onClick={handleList}
-            >
-                En Yakın Merkezleri Listele
-            </Button> */}
-        </Stack>
-            <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+            direction="row"
+            spacing={0}
+            sx={{p:1}}>
+            <Grid container direction="row" alignItems="center" justify="center" spacing={2}>
+                <Grid item xs={8}>
+                    <Autocomplete
+                        disablePortal
+                        id="combo-box-demo"
+                        options={Cities}
+                        autoSelect
+                        fullWidth
+                        onChange={(event, value, reason, details) => {
+                            console.log(value)
+                            localStorage.setItem("latest_city", JSON.stringify(value))
+                            center(value.lat, value.lon)
+                        }}
+                        renderInput={(params) => 
+                        
+                        <TextField {...params} 
+                        error={error !== null}
+                        helperText={error ? error : ''}
+                        label="Şehir"
+                        value={selectedLocation}
+                        onChange={(event) => {
+                            setSelectedLocation(event.target.value)
+                            handleList(event.target.value)
+                            // RecenterMap(event.)
+                        }} />}
+                    />
+                </Grid>
+                <Grid item xs={4} >
+                    <FormControlLabel control={<Checkbox onChange={(event) => {
+                        setNeedPeople(event.target.checked)
+                    }} defaultChecked />} label="Gönüllü isteyenleri filtrele" />
+                    <FormControlLabel control={<Checkbox onChange={(event) => {
+                        setNeedDonation(event.target.checked)
+                    }}/>} label="Yardım isteyenleri filtrele" />
+                </Grid>
+            </Grid>
+            {/* <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
                 {nearestCenters.map((nc) => (
                     <>
                         <ListItem>
@@ -123,7 +130,7 @@ const NearestHelpCentersList = ({ userPosition, helpCenterPositions, setMapView,
                         <Divider />
                     </>
                 ))}
-            </List>
+            </List> */}
         </Box>
     )
 }

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import ActivePoint from "./ActivePoint";
 import "./Map.css";
 import RecenterMap from './RecenterMap';
 
@@ -24,12 +25,14 @@ function Map({ markingPoints, mapView, center }) {
                             setActivePoint(null)
                         }}
                     >   
-                        <div>
+                        <ActivePoint props={activePoint} />
+                        {/* <div>
+
                             <h2>{activePoint.properties.name}</h2>
                             {activePoint.help.needed ? <p>Yardım BEKLENİYOR</p> : <p>Yardım BEKLENMİYOR</p>}
                             {<p><b>İhtiyaçlar: </b>{activePoint.help.message}</p>}
                             {<p><b>Son güncelleme tarihi:</b> activePoint.latest_information_date</p>}
-                        </div>
+                        </div> */}
                     </Popup>
                 )
             }

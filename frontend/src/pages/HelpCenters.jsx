@@ -1,4 +1,4 @@
-import { Box, Button, Grid } from '@mui/material';
+import { Box, Button, Grid, Stack} from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { useEffect, useState } from 'react';
 import Map from "../components/Map";
@@ -9,6 +9,7 @@ const HelpCenters = () => {
 	const [currentPosition, setCurrentPosition] = useState(null) // Position of
 	const [mapView, setMapView] = useState(null)
 	const [center, setCenter] = useState([39.028, 33.882])
+	const [selectedCity, setSelectedCity] = useState({})
 
 	
 	// Fetch points from the database
@@ -65,23 +66,25 @@ const HelpCenters = () => {
 
 
 	return (
-		<Grid container spacing={1}>
-			<Grid item xs={10}>
-				<Map
-					markingPoints={helpCenters}
-					mapView={mapView}
-					center={center}
+		<Stack>
+			<NearestHelpCentersList 
+				userPosition={currentPosition}
+				helpCenterPositions={helpCenters}
+				setMapView={setMapView}
+				setCenter={setCenter}
 				/>
-			</Grid>
-			<Grid item xs={2}>
-				<NearestHelpCentersList 
-					userPosition={currentPosition}
-					helpCenterPositions={helpCenters}
-					setMapView={setMapView}
-					setCenter={setCenter}
+			<Map
+				markingPoints={helpCenters}
+				mapView={mapView}
+				center={center}
 				/>
-			</Grid>
-		</Grid>
+		</Stack>
+		// <Grid container spacing={1}>
+		// 	<Grid item xs={10}>
+		// 	</Grid>
+		// 	<Grid item xs={2}>
+		// 	</Grid>
+		// </Grid>
 	);
 }
 
