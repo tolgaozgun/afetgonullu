@@ -10,8 +10,8 @@ import { Link } from "react-router-dom";
     console.log(props)
   
     return (
-      <Grid container direction="column" alignItems="center" p={2}>
-        <h3 variant="h6">{props.name}</h3>
+      <Grid container direction="column" alignItems="center" p={1}>
+        <h2 variant="h6">{props.name}</h2>
         <Grid item container direction="column" alignItems="center">
           <Grid item>
             {props.needs_people ? <Typography fontSize={16}>Gönüllü lazım</Typography> : <Typography fontSize={16}>Gönüllü lazım değil</Typography>}
@@ -25,12 +25,18 @@ import { Link } from "react-router-dom";
         </Grid>
         <Grid item container direction="column" alignItems="center" spacing={2}>
           <Grid item>
-            <Link to={`http://maps.google.com/maps?z=12&t=m&q=loc:${props.latitude}+${props.longitude}`} target="_blank">
+            <Link 
+              to={`http://maps.google.com/maps?daddr=${props.latitude},${props.longitude}`} 
+              target="_blank">
               <Button variant='contained'>Yol Tarifi</Button>
             </Link>
           </Grid>
           <Grid item>
-            <Button variant='contained' onClick={share} >Paylaş</Button>
+            <Link 
+              to={`http://maps.google.com/maps?z=12&t=m&q=loc:${props.latitude}+${props.longitude}`} 
+              target="_blank">
+              <Button variant='contained' onClick={share} >Paylaş</Button>
+            </Link>
           </Grid>
         </Grid>
       </Grid>
