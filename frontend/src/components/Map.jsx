@@ -31,6 +31,11 @@ function Map({ markingPoints, center }) {
                             activePoint.geometry.lat,
                             activePoint.geometry.lon,
                         ]}
+                        eventHandlers={{
+                            remove: (e) => {
+                                setActivePoint(null)
+                            }
+                        }}
                     >   
                         <ActivePoint {...activePoint} />
                     </Popup>
