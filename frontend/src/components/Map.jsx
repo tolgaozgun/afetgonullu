@@ -2,8 +2,8 @@ import L from "leaflet";
 import { useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { getCustomIcon } from "../helpers/utils";
+import RedMarker from "../img/squat-marker-red";
 import ActivePoint from "./ActivePoint";
-import CustomIcon from "./CustomIcon";
 import "./Map.css";
 import RecenterMap from './RecenterMap';
 
@@ -57,10 +57,9 @@ function Map({ markingPoints, center }) {
             }
             {
                 markingPoints.map(point => {
-                    const iconWithSeverity = getCustomIcon(point.severity)
                     const icon = new L.icon({
-                        iconUrl: iconWithSeverity,
-                        iconRetinaUrl: iconWithSeverity,
+                        iconUrl: RedMarker,
+                        iconRetinaUrl: RedMarker,
                         iconAnchor: null,
                         popupAnchor: null,
                         shadowUrl: null,
