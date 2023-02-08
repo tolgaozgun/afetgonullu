@@ -1,8 +1,8 @@
-import {Button, TextField} from '@mui/material';
+import { Button, TextField } from '@mui/material';
+import Autocomplete from '@mui/material/Autocomplete';
+import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
-import Cities from "../il.json"
-import Autocomplete from '@mui/material/Autocomplete'
-import { DataGrid, GridColumns, GridRowsProp } from '@mui/x-data-grid';
+import Cities from "../il.json";
 
 
 function LocationDataGrid({ onUpdate, onCancel }) {
@@ -62,7 +62,6 @@ function LocationDataGrid({ onUpdate, onCancel }) {
     { field: "severity", headerName: "Severity", type: "numeric", editable: true, flex: 2, minWidth: 100 },
     { field: "latest_information_date", headerName: "Latest Information Date", type: "datetime", flex: 3, minWidth: 200 },
   ];  
-    
     return (
       <>
       <Autocomplete

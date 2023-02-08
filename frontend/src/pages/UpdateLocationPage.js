@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
 
-import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { Grid, MenuItem } from '@mui/material';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 // 1) Malzeme ihtiyaç durumu dropdown
 // 2) İş gücü dropdown
 // 3) not editleme textfield
 
 const UpdateLocationPage = () => {
     const statusList = ["Üst Düzey Aciliyet", "Orta Aciliyet", "Hafif Destek", "Aciliyeti Yok / İhtiyaç Yok", "Kapalı / Aktif Değil", "Henüz Veri Yok"]
-    
-
     const [selectedIsGucu, setSelectedIsGucu] = useState("Henüz Veri Yok");
-
     const [selectedMalzeme, setSelectedMalzeme] = useState("Henüz Veri Yok");
     
     const handleIsGucuChange = (value) => {
