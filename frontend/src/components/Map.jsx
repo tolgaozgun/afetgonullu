@@ -69,7 +69,6 @@ function Map({ markingPoints, center }) {
                             }
                             eventHandlers={{
                                 click: (e) => {
-                                    e.stopPropagation()
                                     setActivePoint(point)
                                 },
                             }}
