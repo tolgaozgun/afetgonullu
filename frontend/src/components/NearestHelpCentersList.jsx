@@ -1,6 +1,5 @@
 import { Box, Button, Divider, List, ListItem, ListItemButton, ListItemText, Stack, TextField, Grid, Checkbox } from "@mui/material"
 import { useEffect, useState } from "react"
-import { useMap } from "react-leaflet"
 import calcCrow from "../helpers/utils"
 import "./NearestHelpCentersList.css"
 import Cities from "../il.json"

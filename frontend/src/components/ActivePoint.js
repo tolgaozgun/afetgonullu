@@ -1,8 +1,8 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
 // import DirectionsIcon from '@material-ui/icons/Directions';
 // import ShareIcon from '@material-ui/icons/Share';
-import { Typography, Button, Grid} from '@mui/material/';
+import { Button, Grid, Typography } from '@mui/material/';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   
     const getDirections = () => {
       // logic to get directions to the location
+      window.location.href = `http://maps.google.com/maps?z=12&t=m&q=loc:${props.latitude}+${props.geometry.longitude}`
     };
 
     
@@ -29,15 +30,15 @@ const useStyles = makeStyles((theme) => ({
   
     return (
       <Grid container direction="column" alignItems="center" className={classes.root}>
-        <Typography variant="h6">{props.name}</Typography>
+        <h3 variant="h6">{props.name}</h3>
         <Grid item container direction="row" alignItems="center" className={classes.needs}>
-          {props.needs_people && <Typography variant="subtitle2">Gönüllü lazım</Typography>}
-          {props.needs_donation && <Typography variant="subtitle2">Bağış lazım</Typography>}
+          {props.needs_people && <p variant="p">Gönüllü lazım</p>}
+          {props.needs_donation && <p variant="p">Bağış lazım</p>}
         </Grid>
-        {props.help_message && <Typography variant="body2">{props.help_message}</Typography>}
+        {props.help_message && <p variant="body2">{props.help_message}</p>}
         <Grid item container direction="row" alignItems="center" className={classes.needs}>
-          <Button onClick={getDirections}>Yol Tarifi</Button>
-          <Button onClick={share} >Paylaş</Button>
+          <Button variant='contained' onClick={getDirections}>Yol Tarifi</Button>
+          <Button variant='contained' onClick={share} >Paylaş</Button>
         </Grid>
       </Grid>
     );
