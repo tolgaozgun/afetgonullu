@@ -8,10 +8,13 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from .serializers import UserSerializer
 from authentication.models import User
+from django.contrib.auth import authenticate
+from rest_framework import status
 
 class LoginAPIView(generics.GenericAPIView):
     authentication_classes = (authentication.BasicAuthentication,)
     permission_classes = (permissions.AllowAny,)
+    serializer_class = UserSerializer
 
     def post(self, request, *args, **kwargs):
         email = request.data.get("email")

@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
+from locations.models import Location
 
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None):
@@ -28,6 +29,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    locations = models.ManyToManyField(Location)
+    contact_no = models.TextField()
 
     objects = UserManager()
 
@@ -36,20 +39,3 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
-    def has_perm(self, perm, obj=None):
-        """
-        Check if the user has the specified permission.
-        """
-        if obj is None:
-            return super().has_perm(perm)
-
-        if isinstance(obj, Location) and perm in ['update', 'delete']:
-            return True
-
-        return False
-
-    def has_module_perms(self, app_label):
-        """
-        Check if the user has permission to view the app `app_label`.
-        """
-        return self.is_staff

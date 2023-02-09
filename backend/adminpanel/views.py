@@ -3,6 +3,10 @@ from rest_framework import generics, permissions
 from rest_framework.response import Response
 from authentication.serializers import UserSerializer
 from django.contrib.auth import get_user_model
+from locations.models import Location
+from locations.serializers import LocationSerializer
+from rest_framework.permissions import AllowAny, IsAuthenticated
+
 
 User = get_user_model()
 # Create your views here.
@@ -29,3 +33,59 @@ class EditUserAPIView(generics.RetrieveUpdateAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({"message": f"Account updated for {user.username}"})
+
+
+# Create Django Rest Framework API view 
+# That will only accept authenticated users
+# And will return all locations of current user
+# in a JSON file
+class LocationAdminList(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
+
+    # Get current user, then get his locations
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        return Location.objects.filter(user=user)
+
+    # permission_classes = [IsAuthenticated]
+
+
+class LocationAdminList(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
+
+    def list(self, request):
+        # Note the use of `get_queryset()` instead of `self.queryset`
+        user = request.user
+        queryset = Location.objects.filter(user=user)
+        serializer = LocationSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+    # permission_classes = (permissions.IsAuthenticated,)
+    # queryset = Location.objects.filter(user=user)
+    # serializer_class = LocationSerializer
+    # # permission_classes = [IsAuthenticated]
+
+    
+    # def get_permissions(self):
+    #     if self.request.method == 'GET':
+    #         return [AllowAny()]
+    #     return [IsAuthenticated()]
+
+
+# class LocationAdminList(generics.ListCreateAPIView):
+#     permission_classes = (permissions.IsAuthenticated,)
+#     queryset = Location.objects.all()
+#     serializer_class = LocationSerializer
+
+#     # Get current user, then get his locations
+#     def get(self, request, *args, **kwargs):
+#         user = self.request.user
+#         return Location.objects.filter(user=user)
+
+    # permission_classes = [IsAuthenticated]
+    
