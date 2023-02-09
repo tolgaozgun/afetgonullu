@@ -13,6 +13,8 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import axios from "axios";
+import { renderEditSingleSelectCell } from '@mui/x-data-grid';
+import { redirect } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -42,7 +44,7 @@ export default function SignIn() {
 
   const handleLogin = async (email, password) => {
     try {
-        const response = await axios.post('/api/auth/login/', {
+        const response = await axios.post('/panel', {
             email,
             password
         });
@@ -51,6 +53,9 @@ export default function SignIn() {
         if (token) {
             // Save the token in local storage or somewhere else to use it for further API requests
             localStorage.setItem('token', token);
+
+            // Redirect user to admin panel /api/panel using redirect library
+            redirect('/api/panel');
             return true;
         }
         return false;
