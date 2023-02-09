@@ -26,9 +26,9 @@ class LoginAPIView(generics.GenericAPIView):
                 token, created = Token.objects.get_or_create(user=user)
                 return Response({"token": token.key})
             else:
-                return Response({"error": "Your account is inactive"})
+                return Response({"error": "Hesabınız aktif değil"})
         else:
-            return Response({"error": "Invalid login credentials"})
+            return Response({"error": "Eposta veya şifre hatalı"})
 
 class RegisterAPIView(generics.CreateAPIView):
     permission_classes = (permissions.AllowAny,)

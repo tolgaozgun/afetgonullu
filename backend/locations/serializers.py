@@ -20,3 +20,4 @@ class LocationSerializer(serializers.ModelSerializer):
             'name': data["name"],
         }
         return data
+    

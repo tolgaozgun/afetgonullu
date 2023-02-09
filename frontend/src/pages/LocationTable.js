@@ -1,9 +1,10 @@
 import { Button, Checkbox, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControlLabel, Stack, TextField } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import { DataGrid } from '@mui/x-data-grid';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Cities from "../il.json";
+import axios from "axios";
 
 
 function LocationDataGrid({ onUpdate, onCancel }) {
@@ -11,51 +12,30 @@ function LocationDataGrid({ onUpdate, onCancel }) {
   	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
 	const [selectedRow, setSelectedRow] = useState(null)
 	const { control, handleSubmit, formState: errors } = useForm()
+	const [locations, setLocations] = useState([])
+	useEffect(() => {
+		// Get token from local storage
+		const token = localStorage.getItem('token', "");
+		handleRequest(token)
+	}, [])
 
-	const locations = [
-		{
-			"id": 4,
-			"name": "Gulcimen Aspava",
-			"latitude": 39.9276529,
-			"longitude": 32.8094168,
-			"needs_people": true,
-			"needs_donation": true,
-			"help_message": "Yardim\n\r\nYardim2",
-			"latest_information_date": "2023-02-07T22:50:47.893307Z",
-			"geometry": {
-				"lat": 39.9276529,
-				"lon": 32.8094168
-			},
-			"help": {
-				"needed": true,
-				"message": "Yardim\n\r\nYardim2"
-			},
-			"properties": {
-				"name": "Gulcimen Aspava"
+	
+	const handleRequest = async (token) => {
+		try {
+			const response = await axios.get('/api/panel/konumlar', {
+			headers: {
+				"Authorization": "Token " + token
 			}
-		},
-		{
-			"id": 5,
-			"name": "Yardim Konumu 1",
-			"latitude": 40.1,
-			"longitude": 32.8094168,
-			"needs_people": true,
-			"needs_donation": true,
-			"help_message": "Ihtiyac malzemeleri:\r\nBez\r\nMama\r\nGiysi\r\nBot\r\nBattaniye\r\nIsitici",
-			"latest_information_date": "2023-02-08T09:34:51.169757Z",
-			"geometry": {
-				"lat": 40.1,
-				"lon": 32.8094168
-			},
-			"help": {
-				"needed": true,
-				"message": "Ihtiyac malzemeleri:\r\nBez\r\nMama\r\nGiysi\r\nBot\r\nBattaniye\r\nIsitici"
-			},
-			"properties": {
-				"name": "Yardim Konumu 1"
-			}
+			});
+			console.log(response.data)
+			setLocations(response.data)
+			return false;
+		} catch (error) {
+			console.error(error);
+			setErrorMessage("Lütfen bağlantınızı kontrol edin.");
+			return false;
 		}
-	]
+	  }
 
   const columns = [
     { field: "name", headerName: "İsim", flex: 3, minWidth: 150},

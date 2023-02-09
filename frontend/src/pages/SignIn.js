@@ -15,6 +15,10 @@ import Typography from '@mui/material/Typography';
 import axios from "axios";
 import { renderEditSingleSelectCell } from '@mui/x-data-grid';
 import { redirect } from "react-router-dom";
+import ErrorAlert from '../components/ErrorAlert';
+import { useState } from 'react';
+
+
 
 function Copyright(props) {
   return (
@@ -32,6 +36,8 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
+  const [errorMessage, setErrorMessage] = useState(null)
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -39,31 +45,37 @@ export default function SignIn() {
       email: data.get('email'),
       password: data.get('password'),
     });
-    handleLogin(email, password)
+    handleLogin(data.get('email'), data.get('password'))
   };
 
   const handleLogin = async (email, password) => {
     try {
-        const response = await axios.post('/panel', {
+        const response = await axios.post('/api/auth/login/', {
             email,
             password
         });
 
         const token = response.data.token;
+        const error = response.data.error;
         if (token) {
             // Save the token in local storage or somewhere else to use it for further API requests
             localStorage.setItem('token', token);
 
             // Redirect user to admin panel /api/panel using redirect library
-            redirect('/api/panel');
+            redirect('/panel');
             return true;
+        }else if (error) {
+          setErrorMessage(error);
+        }else{
+          setErrorMessage("Eposta veya şifre hatalı");
         }
         return false;
     } catch (error) {
         console.error(error);
+        setErrorMessage("Lütfen bağlantınızı kontrol edin.");
         return false;
     }
-
+  }
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -83,6 +95,7 @@ export default function SignIn() {
             Giriş yap
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <ErrorAlert errorMessage={errorMessage}/>
             <TextField
               margin="normal"
               required

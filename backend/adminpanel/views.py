@@ -38,26 +38,27 @@ class EditUserAPIView(generics.RetrieveUpdateAPIView):
 # Create Django Rest Framework API view 
 # That will only accept authenticated users
 # And will return all locations of current user
-# in a JSON file
+# # in a JSON file
+# class LocationAdminList(generics.ListCreateAPIView):
+#     permission_classes = (permissions.IsAuthenticated,)
+#     queryset = Location.objects.all()
+#     serializer_class = LocationSerializer
+
+#     # Get current user, then get his locations
+#     def get(self, request, *args, **kwargs):
+#         user = self.request.user
+#         return Location.objects.filter(user=user)
+
+#     # permission_classes = [IsAuthenticated]
+
+
+
 class LocationAdminList(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
 
-    # Get current user, then get his locations
-    def get(self, request, *args, **kwargs):
-        user = self.request.user
-        return Location.objects.filter(user=user)
-
-    # permission_classes = [IsAuthenticated]
-
-
-class LocationAdminList(generics.ListCreateAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
-    queryset = Location.objects.all()
-    serializer_class = LocationSerializer
-
-    def list(self, request):
+    def get(self, request):
         # Note the use of `get_queryset()` instead of `self.queryset`
         user = request.user
         queryset = Location.objects.filter(user=user)

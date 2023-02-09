@@ -29,8 +29,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    locations = models.ManyToManyField(Location)
-    contact_no = models.TextField()
+    locations = models.ManyToManyField(Location, related_name="user")
+    contact_no = models.TextField(null=True, blank=True)
 
     objects = UserManager()
 

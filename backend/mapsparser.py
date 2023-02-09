@@ -42,24 +42,29 @@ for index, row in df.iterrows():
     print(county, name, maps_url)
     try:
         r = requests.get(maps_url)
-    except:
+    except Exception as exce:
+        print(exce)
         not_valid.append(index)
         continue
     print(r.url)
-    match = re.search("@(-?\d+\.\d+),(-?\d+\.\d+),", r.url)
+    match = re.search("%40(-?\d+\.\d+),(-?\d+\.\d+),", r.url)
+    print("A")
 
     if match:
         latitude = match.group(1)
         longitude = match.group(2)
     else:
+        print("B")
         not_valid.append(index)
         continue
+    print("C")
 
     # Get the cell in the 5th column of the current row
     cell = ws.cell(row=index + 1, column=5)
 
     # Get the background color of the cell
     background_color = cell.fill.start_color.index
+    print("D")
 
     if background_color == 'FFFF0000':
         severity = 0
@@ -67,6 +72,7 @@ for index, row in df.iterrows():
         severity = 5
     else:
         severity = None
+    print("E")
 
     activity = ""
     help_message = ""
@@ -82,9 +88,11 @@ for index, row in df.iterrows():
         help_message = help_row
     else:
         help_message = ""
+    print("F")
 
     # If location already exists, update the severity and help_message
     if Location.objects.filter(name=name).exists():
+        print(" ---> Location already exists")
         location = Location.objects.get(name=name)
         # If 5th column's background color is red set severity to 0,
         # if it is green set severity to 5
@@ -99,14 +107,15 @@ for index, row in df.iterrows():
             location.severity = severity
             
         location.save()
-
     else:
+        print(" ---> Location creating")
         if severity is None:
             severity = 0
         location = Location.objects.create(county=county, 
                                             name=name, 
                                             maps_url=maps_url, latitude=latitude, activity=activity, help_message=help_message, longitude=longitude, update_automatically=True, severity=severity)
         
+        location.save()
         
         random_integer = random.randint(0, 99999)
         # Make sure the random integer is not already in the list
