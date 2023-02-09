@@ -1,12 +1,12 @@
 import L from "leaflet";
 import { useEffect, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-import { getCustomIconColor } from "../helpers/utils";
-import ActivePoint from "./ActivePoint";
+import { getCustomIconColor } from "../../helpers/utils";
+import ActivePoint from "../ActivePoint";
 import "./Map.css";
-import RecenterMap from './RecenterMap';
+import RecenterMap from '../RecenterMap';
 
-function Map({ markingPoints, center }) {
+function Map({ markingPoints, center, zoom }) {
     // markingPoints is an 
     const [activePoint, setActivePoint] = useState(null)
     
@@ -17,8 +17,7 @@ function Map({ markingPoints, center }) {
     return (
         <MapContainer 
             center={center} 
-            zoom={7} 
-            zoomSettings={{ enable: true, toolbars: ['Zoom', 'ZoomIn', 'ZoomOut', 'Pan', 'Reset'] }}>
+            zoom={zoom}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

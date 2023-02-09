@@ -1,13 +1,14 @@
 import { Box, Button, Grid, Stack } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { useEffect, useState } from 'react';
-import Map from "../components/Map";
-import NearestHelpCentersList from '../components/NearestHelpCentersList';
+import Map from "../../components/map/Map";
+import NearestHelpCentersList from '../../components/NearestHelpCentersList';
 
 const HelpCenters = () => {
     const [helpCenters, setHelpCenters] = useState([])
 	const [currentPosition, setCurrentPosition] = useState(null) // Position of
 	const [center, setCenter] = useState([39.028, 33.882])
+	const [zoom, setZoom] = useState(3)
 	const [needPeopleFilter, setNeedPeopleFilter] = useState(false)
     const [needDonationFilter, setNeedDonationFilter] = useState(false)
     const [filteredNearestCenters, setFilteredNearestCenters] = useState()
@@ -59,8 +60,7 @@ const HelpCenters = () => {
 		getMarkingPoints()
 
 		const latest_city = localStorage.getItem("latest_city", null)
-
-		if(latest_city !== null){
+		if(latest_city != null && latest_city !== "null"){
 			let city_json = JSON.parse(latest_city)
 			setCenter([city_json.lat, city_json.lon])
 		}
@@ -83,6 +83,7 @@ const HelpCenters = () => {
 			<Map
 				markingPoints={filteredNearestCenters}
 				center={center}
+				zoom={zoom}
 			/>
 		</Stack>
 	);

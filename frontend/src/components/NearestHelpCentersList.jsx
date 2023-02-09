@@ -121,12 +121,14 @@ const NearestHelpCentersList = ({
                 disablePortal
                 id="combo-box-demo"
                 options={Cities}
-                // autoSelect
+                autoSelect
                 fullWidth
                 onChange={(event, value, reason, details) => {
                     console.log(value)
                     localStorage.setItem("latest_city", JSON.stringify(value))
                     center(value.lat, value.lon)
+                    setSelectedLocation(event.target.value)
+                    // handleList(event.target.value)
                 }}
                 renderInput={(params) => 
                     <TextField {...params} 
@@ -134,10 +136,6 @@ const NearestHelpCentersList = ({
                         // helperText={error ? error : ''}
                         label="Şehir"
                         value={selectedLocation}
-                        onChange={(event) => {
-                            setSelectedLocation(event.target.value)
-                            handleList(event.target.value)
-                        }} 
                     />
                 }
             />

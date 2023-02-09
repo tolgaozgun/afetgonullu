@@ -3,7 +3,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import Cities from "../il.json";
+import Cities from "../../il.json";
 import axios from "axios";
 
 
@@ -32,7 +32,6 @@ function LocationDataGrid({ onUpdate, onCancel }) {
 			return false;
 		} catch (error) {
 			console.error(error);
-			setErrorMessage("Lütfen bağlantınızı kontrol edin.");
 			return false;
 		}
 	  }
