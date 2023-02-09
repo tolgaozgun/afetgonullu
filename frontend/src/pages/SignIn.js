@@ -12,6 +12,7 @@ import * as React from 'react';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
+import axios from "axios";
 
 function Copyright(props) {
   return (
@@ -36,7 +37,27 @@ export default function SignIn() {
       email: data.get('email'),
       password: data.get('password'),
     });
+    handleLogin(email, password)
   };
+
+  const handleLogin = async (email, password) => {
+    try {
+        const response = await axios.post('/api/auth/login/', {
+            email,
+            password
+        });
+
+        const token = response.data.token;
+        if (token) {
+            // Save the token in local storage or somewhere else to use it for further API requests
+            localStorage.setItem('token', token);
+            return true;
+        }
+        return false;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
 
   return (
     <ThemeProvider theme={theme}>

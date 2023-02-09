@@ -375,3 +375,6 @@ pip-selfcheck.json
 
 # End of https://www.toptal.com/developers/gitignore/api/django,react,intellij+all,intellij,virtualenv,venv
 backend/credentials.json
+backend/users.txt
+.gitignore
+backend/data.xlsx
