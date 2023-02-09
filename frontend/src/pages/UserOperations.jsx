@@ -6,8 +6,8 @@ const UserOperations = () => {
         {}
     ]
     const columns = [
-        { field: "E-mail", header: "E-mail", width: 150 },
-        { field: "Per"}
+        { field: "email", header: "E-mail", width: 150 },
+        { field: ""}
     ]
 
     useEffect(() => {
