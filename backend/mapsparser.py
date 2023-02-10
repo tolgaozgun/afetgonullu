@@ -48,23 +48,19 @@ for index, row in df.iterrows():
         continue
     print(r.url)
     match = re.search("%40(-?\d+\.\d+),(-?\d+\.\d+),", r.url)
-    print("A")
 
     if match:
         latitude = match.group(1)
         longitude = match.group(2)
     else:
-        print("B")
         not_valid.append(index)
         continue
-    print("C")
 
     # Get the cell in the 5th column of the current row
     cell = ws.cell(row=index + 1, column=5)
 
     # Get the background color of the cell
     background_color = cell.fill.start_color.index
-    print("D")
 
     if background_color == 'FFFF0000':
         severity = 0
@@ -72,7 +68,6 @@ for index, row in df.iterrows():
         severity = 5
     else:
         severity = None
-    print("E")
 
     activity = ""
     help_message = ""
@@ -88,7 +83,6 @@ for index, row in df.iterrows():
         help_message = help_row
     else:
         help_message = ""
-    print("F")
 
     # If location already exists, update the severity and help_message
     if Location.objects.filter(name=name).exists():

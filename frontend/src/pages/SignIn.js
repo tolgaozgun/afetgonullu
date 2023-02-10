@@ -38,6 +38,25 @@ const theme = createTheme();
 export default function SignIn() {
   const [errorMessage, setErrorMessage] = useState(null)
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    
+    // Check if token is valid by sending a request to the backend
+    // If token is valid, redirect user to admin panel
+    // If not, delete token from localStorage and let user login again
+    const response = await axios.post('/api/auth/verify/', {
+        token
+    });
+    const token = response.data.token;
+    const error = response.data.error;
+
+
+    if (token) {
+        redirect('/panel');
+    }
+
+  }, [])
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
